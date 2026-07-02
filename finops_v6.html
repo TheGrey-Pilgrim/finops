@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anthony Bouilleau — FinOps M365</title>
+
+<!-- Donnees JSON stockees hors du code JS pour eviter les conflits de syntaxe -->
+<script type="application/json" id="d-marche">{"solutions": [{"id": "sambox", "nom": "SamBox.io", "editeur": "Elee", "logo_color": "#0057b8", "tagline": "SAM pur — conformite editeur et optimisation financiere", "adn": "Software Asset Management specialise. Ne de 15 ans d'expertise consulting SAM chez Elee, n°1 SAM en France (Gartner Magic Quadrant 2020). SamBox industrialise ce que les consultants Elee faisaient manuellement.", "forces": ["Moteur de conformite editeur Microsoft maintenu en continu — regles contractuelles True Up/Down integrees", "Algorithme d'optimisation intelligente de l'allocation licences — minimise les deficits", "Forecast budgetaire et modelisation de scenarios de renegociation sur 3 ans", "Distinction cash savings vs cost avoidance — langage DAF natif", "Retention donnees sur toute la duree contractuelle — courbes de tendance 36 mois"], "limites": ["Pas de croisement SIRH reel — pas de qualification par type d'employe", "Pas de matrice de qualification des inactifs — ne distingue pas conducteur sans connexion d'un compte orphelin", "Pas de criteres d'eligibilite terrain (taille BAL, archive, OneDrive, macros Excel)", "Intelligence sur la conformite contractuelle, pas sur l'usage operationnel"], "ideal_pour": "DSI et SAM Managers devant gerer des audits editeurs Microsoft, preparer une renegociation EA/MCA, ou justifier un True Down.", "kd_a_prendre": ["Moteur de regles editeur Microsoft (True Up/Down, conditions eligibilite bundles)", "Modelisation financiere scenarios renegociation sur 3 ans", "Notion cash savings vs cost avoidance pour la DAF", "Retention longue duree des donnees pour courbes de tendance contractuelles"], "modele": "SaaS — abonnement annuel. Essai gratuit 14 jours. Donnees chez Elee ou Azure client."}, {"id": "coreview", "nom": "CoreView", "editeur": "CoreView", "logo_color": "#00a4a6", "tagline": "Gouvernance M365 native — administration et securite tenant", "adn": "Plateforme SaaS specialisee M365 Tenant Resilience. Creee par des experts M365, pour des experts M365. +25 millions de licences M365 gerees. Positionnement securite et gouvernance.", "forces": ["Remediation automatique native : supprime les licences sur comptes inactifs/guests/desactives sans intervention manuelle", "Lifecycle management complet : workflow de provisioning/deprovisioning en drag-and-drop", "Virtual Tenants : segmentation du tenant en perimetres administratifs pour grands groupes multi-entites", "Detection configurations a risque (auto-forwarding, MFA manquant, acces externes)", "Suivi adoption Copilot — detecte les licences Copilot sous-utilisees et reaffecte"], "limites": ["100% M365 — aucune vision sur les autres editeurs ni sur le parc IT physique", "Pas de croisement SIRH structure — pas de profilage par type d'employe", "Pas de matrice de qualification fonctionnelle des inactifs", "Pas de calcul de conformite editeur au sens SAM (True Up/Down)"], "ideal_pour": "IT Admins et RSSI qui gerent un tenant M365 complexe multi-entites et cherchent a automatiser la gouvernance et renforcer la posture securite.", "kd_a_prendre": ["Automatisation du deprovisioning declenche par les alertes governance", "Suivi adoption Copilot via connecteur Graph API usage", "Segmentation tenant en perimetres pour groupes complexes", "Detection configurations a risque M365 (auto-forwarding, MFA, acces externes)"], "modele": "SaaS — abonnement annuel. Pricing non public."}, {"id": "kd", "nom": "Know and Decide", "editeur": "Know and Decide", "logo_color": "#3b6de8", "tagline": "ITAM transverse — consolidation multi-sources et qualite donnees", "adn": "Plateforme de Data et Asset Management IT generaliste. Architecture agentless en 3 modules : Data Discover, Data Management, Data Report. Positionnement CMDB, gouvernance donnees IT, reporting multi-audiences.", "forces": ["Architecture multi-sources native : croise Entra ID, SIRH, EasyVista, CMDB, Admin Center en un inventaire unique", "Moteur de regles no-code applicable a tout type d'actif — y compris la logique de qualification des comptes M365", "Controles qualite et coherence automatises — detection doublons, comptes sans correspondance RH", "Data Report multi-audiences : vue DSI, DAF, IT, Metiers avec drill-down jusqu'a l'utilisateur", "Alimentation CMDB automatisee — seul des 3 outils a connecter FinOps licences et gouvernance CMDB"], "limites": ["Pas de moteur SAM contractuel editeur — ne calcule pas la position de conformite Microsoft au sens audit", "Pas de forecast budgetaire natif sur scenarios de renegociation contractuelle", "Pas de remediation automatique M365 native — alertes mais pas d'action auto sur le tenant", "Le modele FinOps M365 n'est pas pre-configure — necessite un expert pour definir les regles metier"], "valeur_distinctive": ["Seul outil qui croise M365 avec des sources IT heterogenes (CMDB, SIRH, outils physiques)", "Seul outil qui produit un inventaire fiable servant a la fois FinOps licences, CMDB et cybersecurite", "Seul outil applicable a O365 + Adobe + Salesforce dans le meme referentiel", "La jointure SIRH/Entra ID via UPN est native — c'est exactement ce qui manquait a Printemps"], "modele": "On-premise ou heberge. Pricing sur devis."}], "modele_finops": {"etapes": [{"num": "1", "titre": "Collecter", "desc": "Agreger les donnees M365 depuis toutes les sources disponibles sans reconstruction manuelle", "kd_couvre": true, "kd_note": "Data Discover — connecteurs agentless vers toutes les sources M365 et IT", "sambox_couvre": true, "sambox_note": "Graph API + contrat Microsoft — fort sur la couche contractuelle", "coreview_couvre": true, "coreview_note": "Natif tenant M365 — le plus simple a connecter", "anthony_apporte": null}, {"num": "2", "titre": "Qualifier", "desc": "Traduire les donnees brutes en categories actionnables : actif, inactif, eligible au downgrade, orphelin", "kd_couvre": true, "kd_note": "Moteur de regles no-code — peut implementer la matrice de qualification GEODIS", "sambox_couvre": false, "sambox_note": "Detecte les licences inutilisees mais sans qualification fonctionnelle du compte", "coreview_couvre": false, "coreview_note": "Detecte l'inactivite technique mais sans croisement SIRH ni profils metier", "anthony_apporte": "La matrice de qualification des inactifs (7 categories) et les criteres d'eligibilite terrain (BAL, archive, OneDrive, macros) — expertise metier non replicable par un outil seul"}, {"num": "3", "titre": "Piloter", "desc": "Rendre visible la situation reelle a chaque audience avec le bon niveau de detail", "kd_couvre": true, "kd_note": "Data Report — 4 vues multi-audiences avec drill-down jusqu'a l'utilisateur", "sambox_couvre": true, "sambox_note": "Dashboard M365 avec vues contrat, licences, usages, optimisation", "coreview_couvre": true, "coreview_note": "Reporting natif M365 + chargeback par BU, acces delegue aux equipes Finance", "anthony_apporte": "La structuration des 4 vues fondamentales et leur calibrage par audience — visible dans les dashboards GEODIS (Work Units v1 et M365 Operational v2)"}, {"num": "4", "titre": "Optimiser", "desc": "Declencher les actions d'economie avec mesure du ROI avant et apres", "kd_couvre": true, "kd_note": "Plan de remediation + tickets ITSM — declenche les actions correctives", "sambox_couvre": true, "sambox_note": "Le plus fort ici — algorithme d'optimisation, forecast, True Up/Down, cash savings", "coreview_couvre": true, "coreview_note": "Remediation automatique native — supprime les licences sans intervention", "anthony_apporte": "La modelisation des scenarios de downgrade avec impact terrain (conducteurs, macros, archives) et la roadmap budgetaire 3 ans — visible dans la mission Printemps (-30% sur 3 ans)"}], "gaps_kd": [{"gap": "Moteur SAM contractuel Microsoft", "priorite": "haute", "action": "Partenariat ou connecteur vers SamBox pour les calculs True Up/Down et gestion audits editeurs", "source": "SamBox.io"}, {"gap": "Forecast budgetaire scenarios renegociation", "priorite": "haute", "action": "Developper dans Data Report une vue projection 3 ans avec scenarios de downgrade et ROI", "source": "SamBox.io"}, {"gap": "Remediation automatique M365", "priorite": "moyenne", "action": "Enrichir le module tickets ITSM pour declencher des actions directes sur le tenant M365", "source": "CoreView"}, {"gap": "Suivi adoption Copilot", "priorite": "moyenne", "action": "Connecteur Graph API Copilot usage : reports/getMicrosoft365CopilotUsageUserDetail", "source": "CoreView"}, {"gap": "Regles eligibilite BAL/archive/OneDrive", "priorite": "haute", "action": "Parametrage au setup par expert — regles Data Management specifiques M365 par profil", "source": "Expertise terrain"}, {"gap": "Modele FinOps M365 pre-configure", "priorite": "critique", "action": "Offre partenariat : l'expert apporte le modele metier, K&D apporte le moteur technique", "source": "Partenariat"}]}}</script>
+<script type="application/json" id="d-skus">[{"Product_Display_Name": "Defender Threat Intelligence", "String_Id": "Defender_Threat_Intelligence", "GUID": "a9c51c15-ffad-4c66-88c0-8771455c832d", "Famille": "EMS / Security"}, {"Product_Display_Name": "Enterprise Mobility + Security E3", "String_Id": "EMS", "GUID": "efccb6f7-5641-4e0e-bd10-b4976e1bf68e", "Famille": "EMS / Security"}, {"Product_Display_Name": "Enterprise Mobility + Security E5", "String_Id": "EMSPREMIUM", "GUID": "b05e124f-c7cc-45a0-a6aa-8cf78c946968", "Famille": "EMS / Security"}, {"Product_Display_Name": "Exchange Online (Plan 1)", "String_Id": "EXCHANGESTANDARD", "GUID": "4b9405b0-7788-4568-add1-99614e613b69", "Famille": "Exchange"}, {"Product_Display_Name": "Exchange Online (Plan 2)", "String_Id": "EXCHANGEENTERPRISE", "GUID": "19ec0d23-8335-4cbd-94ac-6050e30712fa", "Famille": "Exchange"}, {"Product_Display_Name": "Exchange Online Archiving for Exchange Online", "String_Id": "EXCHANGEARCHIVE_ADDON", "GUID": "ee02fd1b-340e-4a4b-b355-4a514e4c8943", "Famille": "Exchange"}, {"Product_Display_Name": "Exchange Online Archiving for Exchange Server", "String_Id": "EXCHANGEARCHIVE", "GUID": "90b5e015-709a-4b8b-b08e-3200f994494c", "Famille": "Exchange"}, {"Product_Display_Name": "Exchange Online Essentials", "String_Id": "EXCHANGE_S_ESSENTIALS", "GUID": "e8f81a67-bd96-4074-b108-cf193eb9433b", "Famille": "Exchange"}, {"Product_Display_Name": "Exchange Online Essentials (ExO P1 Based)", "String_Id": "EXCHANGEESSENTIALS", "GUID": "7fc0182e-d107-4556-8329-7caaa511197b", "Famille": "Exchange"}, {"Product_Display_Name": "Exchange Online Kiosk", "String_Id": "EXCHANGEDESKLESS", "GUID": "80b2d799-d2ba-4d2a-8842-fb0d0f3a4b82", "Famille": "Exchange"}, {"Product_Display_Name": "Exchange Online POP", "String_Id": "EXCHANGETELCO", "GUID": "cb0a98a8-11bc-494c-83d9-c1b1ac65327e", "Famille": "Exchange"}, {"Product_Display_Name": "Exchange Online Protection", "String_Id": "EOP_ENTERPRISE", "GUID": "45a2423b-e884-448d-a831-d9e139c52d2f", "Famille": "Exchange"}, {"Product_Display_Name": "Intune", "String_Id": "INTUNE_A", "GUID": "061f9ace-7d42-4136-88ac-31dc755f143f", "Famille": "EMS / Security"}, {"Product_Display_Name": "Intune for Education", "String_Id": "INTUNE_EDU", "GUID": "d9d89b70-a645-4c24-b041-8d3cb1884ec7", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft 365 A1", "String_Id": "M365EDU_A1", "GUID": "b17653a4-2443-4e8c-a550-18249dda78bb", "Famille": "Autre"}, {"Product_Display_Name": "Microsoft 365 Apps for Business", "String_Id": "SMB_BUSINESS", "GUID": "b214fe43-f5a3-4703-beeb-fa97188220fc", "Famille": "M365 Apps"}, {"Product_Display_Name": "Microsoft 365 Apps for Business", "String_Id": "O365_BUSINESS", "GUID": "cdd28e44-67e3-425e-be4c-737fab2899d3", "Famille": "M365 Apps"}, {"Product_Display_Name": "Microsoft 365 Apps for Enterprise", "String_Id": "OFFICESUBSCRIPTION", "GUID": "c2273bd0-dff7-4215-9ef5-2c7bcfb06425", "Famille": "M365 Apps"}, {"Product_Display_Name": "Microsoft 365 Apps for enterprise (device)", "String_Id": "OFFICE_PROPLUS_DEVICE1", "GUID": "ea4c5ec8-50e3-4193-89b9-50da5bd4cdc7", "Famille": "M365 Apps"}, {"Product_Display_Name": "Microsoft 365 Audio Conferencing", "String_Id": "MCOMEETADV", "GUID": "0c266dff-15dd-4b49-8397-2bb16070ed52", "Famille": "Autre"}, {"Product_Display_Name": "Microsoft 365 Audio Conferencing Pay-Per-Minute - EA", "String_Id": "MCOMEETACPEA", "GUID": "df9561a4-4969-4e6a-8e73-c601b68ec077", "Famille": "Autre"}, {"Product_Display_Name": "Microsoft 365 Business Basic", "String_Id": "O365_BUSINESS_ESSENTIALS", "GUID": "3b555118-da6a-4418-894f-7df1e2096870", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Basic", "String_Id": "SMB_BUSINESS_ESSENTIALS", "GUID": "dab7782a-93b1-4074-8bb1-0e61318bea0b", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Basic (no Teams)", "String_Id": "Microsoft_365_Business_Basic_(no Teams)", "GUID": "21502a13-c8dc-4744-be9c-177fd9d2eafc", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Basic EEA (no Teams)", "String_Id": "Microsoft_365_Business_Basic_EEA_(no_Teams)", "GUID": "b1f3042b-a390-4b56-ab61-b88e7e767a97", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Premium", "String_Id": "SPB", "GUID": "cbdc14ab-d96c-4c30-b9f4-6ada7cdc1d46", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Premium (no Teams)", "String_Id": "Microsoft_365_ Business_ Premium_(no Teams)", "GUID": "00e1ec7b-e4a3-40d1-9441-b69b597ab222", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Premium Donation", "String_Id": "Microsoft_365_Business_Premium_Donation_(Non_Profit_Pricing)", "GUID": "24c35284-d768-4e53-84d9-b7ae73dddf69", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Premium EEA (no Teams)", "String_Id": "Office_365_w/o_Teams_Bundle_Business_Premium", "GUID": "a3f586b6-8cce-4d9b-99d6-55238397f77a", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Standard", "String_Id": "O365_BUSINESS_PREMIUM", "GUID": "f245ecc8-75af-4f8e-b61f-27d8114de5f3", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Standard (no Teams)", "String_Id": "MICROSOFT_365_BUSINESS_STANDARD_NO_TEAMS", "GUID": "5a1c7b8d-0739-4ca8-bf69-ec87e69133ac", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Standard - Prepaid Legacy", "String_Id": "SMB_BUSINESS_PREMIUM", "GUID": "ac5cef5d-921b-4f97-9ef3-c99076e5470f", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Standard EEA (no Teams)", "String_Id": "Office_365_w/o_Teams_Bundle_Business_Standard", "GUID": "c1f79c29-5d7a-4bec-a2c1-1a76774864c0", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Standard EEA (no Teams)", "String_Id": "Microsoft_365_Business_Standard_EEA_(no_Teams)", "GUID": "ffa3a2a0-3820-462a-aa81-8a4d741f0cba", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Voice", "String_Id": "BUSINESS_VOICE_MED2", "GUID": "a6051f20-9cbc-47d2-930d-419183bf6cf1", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Voice (UK", "String_Id": "BUSINESS_VOICE", "GUID": "e5a17adf-8f0d-4b57-bc14-d331235f9307", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Voice (US)", "String_Id": "BUSINESS_VOICE_MED2_TELCO", "GUID": "08d7bce8-6e16-490e-89db-1d508e5e9609", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Voice (without Calling Plan)", "String_Id": "BUSINESS_VOICE_DIRECTROUTING", "GUID": "d52db95a-5ecb-46b6-beb0-190ab5cda4a8", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Business Voice (without Calling Plan) for US", "String_Id": "BUSINESS_VOICE_DIRECTROUTING_MED", "GUID": "8330dae3-d349-44f7-9cad-1b23c64baabe", "Famille": "Business"}, {"Product_Display_Name": "Microsoft 365 Copilot for Finance (Preview)", "String_Id": "Microsoft_Copilot_for_Finance_trial", "GUID": "7792674b-fa0c-4af5-b2a1-a15239f933b6", "Famille": "Copilot"}, {"Product_Display_Name": "Microsoft 365 Copilot for Sales", "String_Id": "Microsoft_Copilot_for_Sales", "GUID": "15f2e9fc-b782-4f73-bf51-81d8b7fff6f4", "Famille": "Copilot"}, {"Product_Display_Name": "Microsoft 365 Domestic Calling Plan (120 min)", "String_Id": "MCOPSTN_5", "GUID": "11dee6af-eca8-419f-8061-6864517c1875", "Famille": "Autre"}, {"Product_Display_Name": "Microsoft 365 Domestic Calling Plan (120 minutes) - US", "String_Id": "MCOPSTN5_US", "GUID": "d13e9d1b-316a-4946-98c6-362c97a4fdfe", "Famille": "Autre"}, {"Product_Display_Name": "Microsoft 365 E3", "String_Id": "SPE_E3", "GUID": "05e9a617-0261-4cee-bb44-138d3ef5d965", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E3 (500 seats min)_HUB", "String_Id": "Microsoft_365_E3", "GUID": "0c21030a-7e60-4ec7-9a0f-0042e0e0211a", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E3 (no Teams)", "String_Id": "Microsoft_365_E3_(no_Teams)", "GUID": "dcf0408c-aaec-446c-afd4-43e3683943ea", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E3 - Unattended License", "String_Id": "SPE_E3_RPA1", "GUID": "c2ac2ee4-9bb1-47e4-8541-d689c7e83371", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E3 EEA (no Teams)", "String_Id": "O365_w/o Teams Bundle_M3", "GUID": "c2fe850d-fbbb-4858-b67d-bd0c6e746da3", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E3 EEA (no Teams) (500 seats min)_HUB", "String_Id": "O365_w/o Teams Bundle_M3_(500_seats_min)_HUB", "GUID": "602e6573-55a3-46b1-a1a0-cc267991501a", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E3 EEA (no Teams) - Unattended License", "String_Id": "Microsoft_365_E3_EEA_(no_Teams)_Unattended_License", "GUID": "a23dbafb-3396-48b3-ad9c-a304fe206043", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E3 Extra Features", "String_Id": "Microsoft_365_E3_Extra_Features", "GUID": "f5b15d67-b99e-406b-90f1-308452f94de6", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5", "String_Id": "SPE_E5", "GUID": "06ebc4ee-1bb5-47dd-8120-11324bc54e06", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 (500 seats min)_HUB", "String_Id": "Microsoft_365_E5", "GUID": "db684ac5-c0e7-4f92-8284-ef9ebde75d33", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 (no Teams)", "String_Id": "Microsoft_365_E5_(no_Teams)", "GUID": "18a4bd3f-0b5b-4887-b04f-61dd0ee15f5e", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 Compliance", "String_Id": "INFORMATION_PROTECTION_COMPLIANCE", "GUID": "184efa21-98c3-4e5d-95ab-d07053a96e67", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 Developer (without Windows and Audio Conferencing)", "String_Id": "DEVELOPERPACK_E5", "GUID": "c42b9cae-ea4f-4ab7-9717-81576235ccac", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 EEA (no Teams)", "String_Id": "O365_w/o_Teams_Bundle_M5", "GUID": "3271cf8e-2be5-4a09-a549-70fd05baaa17", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 EEA (no Teams) (500 seats min)_HUB", "String_Id": "O365_w/o_Teams_Bundle_M5_(500_seats_min)_HUB", "GUID": "1e988bf3-8b7c-4731-bec0-4e2a2946600c", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 EEA (no Teams) with Calling Minutes", "String_Id": "Microsoft_365_E5_EEA_(no_Teams)_with_Calling_Minutes", "GUID": "6ee4114a-9b2d-4577-9e7a-49fa43d222d3", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 EEA (no Teams) without Audio Conferencing", "String_Id": "Microsoft_365_E5_EEA_(no_Teams)_without_Audio_Conferencing", "GUID": "90277bc7-a6fe-4181-99d8-712b08b8d32b", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 EEA (no Teams) without Audio Conferencing (500 seats min)_HUB", "String_Id": "Microsoft_365_E5_EEA_(no_Teams)_without_Audio_Conferencing_(500_seats_min)_HUB", "GUID": "a640eead-25f6-4bec-97e3-23cfd382d7c2", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 Security", "String_Id": "IDENTITY_THREAT_PROTECTION", "GUID": "26124093-3d78-432b-b5dc-48bf992543d5", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 Security for EMS E5", "String_Id": "IDENTITY_THREAT_PROTECTION_FOR_EMS_E5", "GUID": "44ac31e7-2999-4304-ad94-c948886741d4", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 Suite features", "String_Id": "M365_E5_SUITE_COMPONENTS", "GUID": "99cc8282-2f74-4954-83b7-c6a9a1999067", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 with Calling Minutes", "String_Id": "SPE_E5_CALLINGMINUTES", "GUID": "a91fc4e0-65e5-4266-aa76-4037509c1626", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 without Audio Conferencing", "String_Id": "SPE_E5_NOPSTNCONF", "GUID": "cd2925a3-5076-4233-8931-638a8c94f773", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E5 without Audio Conferencing (500 seats min)_HUB", "String_Id": "Microsoft_365_E5_without_Audio_Conferencing", "GUID": "2113661c-6509-4034-98bb-9c47bd28d63c", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 E7", "String_Id": "MICROSOFT_365_E7", "GUID": "9a18296a-025f-4e37-9ffa-30bf8d1ce775", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Microsoft 365 F1", "String_Id": "M365_F1", "GUID": "44575883-256e-4a79-9da4-ebe9acabe2b2", "Famille": "Frontline"}, {"Product_Display_Name": "Microsoft 365 F1", "String_Id": "M365_F1_COMM", "GUID": "50f60901-3181-4b75-8a2c-4c8e4c1d5a72", "Famille": "Frontline"}, {"Product_Display_Name": "Microsoft 365 F1 EEA (no Teams)", "String_Id": "Microsoft_365_F1_EEA_(no_Teams)", "GUID": "0666269f-b167-4c5b-a76f-fc574f2b1118", "Famille": "Frontline"}, {"Product_Display_Name": "Microsoft 365 F3", "String_Id": "SPE_F1", "GUID": "66b55226-6b4f-492c-910c-a3b7a3c9d993", "Famille": "Frontline"}, {"Product_Display_Name": "Microsoft 365 F3 EEA (no Teams)", "String_Id": "Microsoft_365_F3_EEA_(no_Teams)", "GUID": "f7ee79a7-7aec-4ca4-9fb9-34d6b930ad87", "Famille": "Frontline"}, {"Product_Display_Name": "Microsoft 365 F5 Compliance Add-on", "String_Id": "SPE_F5_COMP", "GUID": "91de26be-adfa-4a3d-989e-9131cc23dda7", "Famille": "Frontline"}, {"Product_Display_Name": "Microsoft 365 F5 Security + Compliance Add-on", "String_Id": "SPE_F5_SECCOMP", "GUID": "32b47245-eb31-44fc-b945-a8b1576c439f", "Famille": "Frontline"}, {"Product_Display_Name": "Microsoft 365 F5 Security Add-on", "String_Id": "SPE_F5_SEC", "GUID": "67ffe999-d9ca-49e1-9d2c-03fb28aa7a48", "Famille": "Frontline"}, {"Product_Display_Name": "Microsoft 365 Lighthouse", "String_Id": "Microsoft365_Lighthouse", "GUID": "9c0587f3-8665-4252-a8ad-b7a5ade57312", "Famille": "Autre"}, {"Product_Display_Name": "Microsoft 365 Security and Compliance for Firstline Workers", "String_Id": "M365_SECURITY_COMPLIANCE_FOR_FLW", "GUID": "2347355b-4e81-41a4-9c22-55057a399791", "Famille": "Autre"}, {"Product_Display_Name": "Microsoft Copilot Studio", "String_Id": "Power_Virtual_Agents", "GUID": "75564b9c-51e8-431c-b8fe-d472d5a545c8", "Famille": "Copilot"}, {"Product_Display_Name": "Microsoft Copilot Studio User License", "String_Id": "VIRTUAL_AGENT_USL", "GUID": "4b74a65c-8b4a-4fc8-9f6b-5177ed11ddfa", "Famille": "Copilot"}, {"Product_Display_Name": "Microsoft Copilot Studio Viral Trial", "String_Id": "CCIBOTS_PRIVPREV_VIRAL", "GUID": "606b54a9-78d8-4298-ad8b-df6ef4481c80", "Famille": "Copilot"}, {"Product_Display_Name": "Microsoft Copilot for Microsoft 365", "String_Id": "M365_Copilot", "GUID": "a809996b-059e-42e2-9866-db24b99a9782", "Famille": "Copilot"}, {"Product_Display_Name": "Microsoft Copilot for Microsoft 365", "String_Id": "Microsoft_365_Copilot", "GUID": "639dec6b-bb19-468b-871c-c5c441c4b0cb", "Famille": "Copilot"}, {"Product_Display_Name": "Microsoft Defender Vulnerability Management", "String_Id": "TVM_Premium_Standalone", "GUID": "1925967e-8013-495f-9644-c99f8b463748", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender Vulnerability Management Add-on", "String_Id": "TVM_Premium_Add_on", "GUID": "ad7a56e0-6903-4d13-94f3-5ad491e78960", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Business", "String_Id": "MDE_SMB", "GUID": "5e1e7702-a2b7-4360-8d07-2f515792896f", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Endpoint", "String_Id": "WIN_DEF_ATP", "GUID": "111046dd-295b-4d6d-9724-d52ac90bd1f2", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Endpoint F2", "String_Id": "Microsoft_Defender_for_Endpoint_F2", "GUID": "e430a580-c37b-4d16-adba-d881d7cd0364", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Endpoint P1", "String_Id": "DEFENDER_ENDPOINT_P1", "GUID": "16a55f2f-ff35-4cd5-9146-fb784e3761a5", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Endpoint P1 for EDU", "String_Id": "DEFENDER_ENDPOINT_P1_EDU", "GUID": "bba890d4-7881-4584-8102-0c3fdfb739a7", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Endpoint P2_XPLAT", "String_Id": "MDATP_XPLAT", "GUID": "b126b073-72db-4a9d-87a4-b17afe41d4ab", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Endpoint Server", "String_Id": "MDATP_Server", "GUID": "509e8ab6-0274-4cda-bcbd-bd164fd562c4", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Identity", "String_Id": "ATA", "GUID": "98defdf7-f6c1-44f5-a1f6-943b6764e7a5", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Office 365 (Plan 1)", "String_Id": "ATP_ENTERPRISE", "GUID": "4ef96642-f096-40de-a3e9-d83fb2f90211", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Defender for Office 365 (Plan 2)", "String_Id": "THREAT_INTELLIGENCE", "GUID": "3dd6cf57-d688-4eed-ba52-9e40b5468c3e", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Intune Advanced Analytics", "String_Id": "Microsoft_Intune_Advanced_Analytics", "GUID": "5e36d0d4-e9e5-4052-aba0-0257465c9b86", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Intune Device", "String_Id": "INTUNE_A_D", "GUID": "2b317a4a-77a6-4188-9437-b68a77b4e2c6", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Intune Plan 1 A VL", "String_Id": "INTUNE_A_VL", "GUID": "99fc2803-fa72-42d3-ae78-b055e177d275", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Intune SMB", "String_Id": "INTUNE_SMB", "GUID": "e6025b08-2fa5-4313-bd0a-7e5ffca32958", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Intune Suite", "String_Id": "Microsoft_Intune_Suite", "GUID": "a929cd4d-8672-47c9-8664-159c1f322ba8", "Famille": "EMS / Security"}, {"Product_Display_Name": "Microsoft Sales Copilot", "String_Id": "Microsoft_Viva_Sales", "GUID": "3227bcb2-8448-4f81-b3c2-8c2074e15a2a", "Famille": "Copilot"}, {"Product_Display_Name": "Microsoft Teams (Free)", "String_Id": "TEAMS_FREE", "GUID": "16ddbbfc-09ea-4de2-b1d7-312db6112d70", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Audio Conferencing with dial-out to USA/CAN", "String_Id": "Microsoft_Teams_Audio_Conferencing_select_dial_out", "GUID": "1c27243e-fb4d-42b1-ae8c-fe25c9616588", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Calling Plan pay-as-you-go (country zone 1 - US)", "String_Id": "Microsoft_Teams_Calling_Plan_pay_as_you_go_(country_zone_1_US)", "GUID": "9b196e97-5830-4c2e-adc2-1e10ebf5dee5", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Calling Plan pay-as-you-go (country zone 1)", "String_Id": "Microsoft_Teams_Calling_Plan_pay_as_you_go_(country_zone_1)", "GUID": "dbd31205-338e-4dec-903d-44402e305e32", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Commercial Cloud", "String_Id": "TEAMS_COMMERCIAL_TRIAL", "GUID": "29a2f828-8f39-4837-b8ff-c957e86abe3c", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Domestic Calling Plan (240 min)", "String_Id": "MCOPSTN_6", "GUID": "729dbb8f-8d56-4994-8e33-2f218f549544", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams EEA", "String_Id": "Microsoft_Teams_EEA_New", "GUID": "7e74bd05-2c47-404e-829a-ba95c66fe8e5", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Enterprise", "String_Id": "Microsoft_Teams_Enterprise_New", "GUID": "7e31c0d9-9551-471d-836f-32ee72be4a01", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Essentials", "String_Id": "Teams_Ess", "GUID": "fde42873-30b6-436b-b361-21af5a6b84ae", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Essentials (AAD Identity)", "String_Id": "TEAMS_ESSENTIALS_AAD", "GUID": "3ab6abff-666f-4424-bfb7-f0bc274ec7bc", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Exploratory", "String_Id": "TEAMS_EXPLORATORY", "GUID": "710779e8-3d4a-4c88-adb9-386c958d1fdf", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Exploratory Dept", "String_Id": "Microsoft_Teams_Exploratory_Dept", "GUID": "e0dfc8b9-9531-4ec8-94b4-9fec23b05fc8", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Phone Resource Account", "String_Id": "PHONESYSTEM_VIRTUALUSER", "GUID": "440eaaa8-b3e0-484b-a8be-62870b9ba70a", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Phone Standard", "String_Id": "MCOEV", "GUID": "e43b5b99-8dfb-405f-9987-dc307f34bcbd", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Phone Standard for DOD", "String_Id": "MCOEV_DOD", "GUID": "d01d9287-694b-44f3-bcc5-ada78c8d953e", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Phone Standard for Small and Medium Business", "String_Id": "MCOEVSMB_1", "GUID": "aa6791d3-bb09-4bc2-afed-c30c3fe26032", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Phone Standard for TELSTRA", "String_Id": "MCOEV_TELSTRA", "GUID": "ffaf2d68-1c95-4eb3-9ddd-59b81fba0f61", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Premium Introductory Pricing", "String_Id": "Microsoft_Teams_Premium", "GUID": "36a0f3b3-adb5-49ea-bf66-762134cf063a", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Rooms Basic", "String_Id": "Microsoft_Teams_Rooms_Basic", "GUID": "6af4b3d6-14bb-4a2a-960c-6c902aad34f3", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Rooms Basic for EDU", "String_Id": "Microsoft_Teams_Rooms_Basic_FAC", "GUID": "a4e376bd-c61e-4618-9901-3fc0cb1b88bb", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Rooms Basic without Audio Conferencing", "String_Id": "Microsoft_Teams_Rooms_Basic_without_Audio_Conferencing", "GUID": "50509a35-f0bd-4c5e-89ac-22f0e16a00f8", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Rooms Pro", "String_Id": "Microsoft_Teams_Rooms_Pro", "GUID": "4cde982a-ede4-4409-9ae6-b003453c8ea6", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Rooms Pro for EDU", "String_Id": "Microsoft_Teams_Rooms_Pro_FAC", "GUID": "c25e2b36-e161-4946-bef2-69239729f690", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Rooms Pro without Audio Conferencing", "String_Id": "Microsoft_Teams_Rooms_Pro_without_Audio_Conferencing", "GUID": "21943e3a-2429-4f83-84c1-02735cd49e78", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Rooms Standard", "String_Id": "MEETING_ROOM", "GUID": "6070a4c8-34c6-4937-8dfb-39bbc6397a60", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Rooms Standard without Audio Conferencing", "String_Id": "MEETING_ROOM_NOAUDIOCONF", "GUID": "61bec411-e46a-4dab-8f46-8b58ec845ffe", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Shared Devices", "String_Id": "MCOCAP", "GUID": "295a8eb0-f78d-45c7-8b5b-1eed5ed02dff", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Teams Trial", "String_Id": "MS_TEAMS_IW", "GUID": "74fbf1bb-47c6-4796-9623-77dc7371723b", "Famille": "Teams"}, {"Product_Display_Name": "Microsoft Viva Glint", "String_Id": "Viva_Glint_Standalone", "GUID": "3dc7332d-f0fa-40a3-81d3-dd6b84469b78", "Famille": "Viva"}, {"Product_Display_Name": "Microsoft Viva Goals", "String_Id": "Microsoft_Viva_Goals", "GUID": "ba929637-f158-4dee-927c-eb7cdefcd955", "Famille": "Viva"}, {"Product_Display_Name": "Microsoft Viva Suite", "String_Id": "VIVA", "GUID": "61902246-d7cb-453e-85cd-53ee28eec138", "Famille": "Viva"}, {"Product_Display_Name": "Office 365 Advanced Compliance", "String_Id": "EQUIVIO_ANALYTICS", "GUID": "1b1b1f7a-8355-43b6-829f-336cfccb744c", "Famille": "Autre"}, {"Product_Display_Name": "Office 365 Cloud App Security", "String_Id": "ADALLOM_O365", "GUID": "84d5f90f-cd0d-4864-b90b-1c7ba63b4808", "Famille": "Autre"}, {"Product_Display_Name": "Office 365 E1", "String_Id": "STANDARDPACK", "GUID": "18181a46-0d4e-45cd-891e-60aabd171b4e", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E1 (no Teams)", "String_Id": "Office_365_E1_(no_Teams)", "GUID": "f8ced641-8e17-4dc5-b014-f5a2d53f6ac8", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E1 EEA (no Teams)", "String_Id": "Office_365_w/o_Teams_Bundle_E1", "GUID": "b57282e3-65bd-4252-9502-c0eae1e5ab7f", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E2", "String_Id": "STANDARDWOFFPACK", "GUID": "6634e0ce-1a9f-428c-a498-f84ec7b8aa2e", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E3", "String_Id": "ENTERPRISEPACK", "GUID": "6fd2c87f-b296-42f0-b197-1e91e994b900", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E3 (no Teams)", "String_Id": "Office_365_E3_(no_Teams)", "GUID": "46c3a859-c90d-40b3-9551-6178a48d5c18", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E3 Developer", "String_Id": "DEVELOPERPACK", "GUID": "189a915c-fe4f-4ffa-bde4-85b9628d07a0", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E3 EEA (no Teams)", "String_Id": "O365_w/o_Teams_Bundle_E3", "GUID": "d711d25a-a21c-492f-bd19-aae1e8ebaf30", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E4", "String_Id": "ENTERPRISEWITHSCAL", "GUID": "1392051d-0cb9-4b7a-88d5-621fee5e8711", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E5", "String_Id": "ENTERPRISEPREMIUM", "GUID": "c7df2760-2c81-4ef7-b578-5b5392b571df", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E5 EEA (no Teams)", "String_Id": "Office_365_w/o_Teams_Bundle_E5", "GUID": "cf50bae9-29e8-4775-b07c-56ee10e3776d", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E5 EEA (no Teams) without Audio Conferencing", "String_Id": "Office_365_E5_EEA_(no_Teams)_without_Audio_Conferencing", "GUID": "71772aeb-4bb8-4f74-9dd4-36c7a9b5ca74", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 E5 Without Audio Conferencing", "String_Id": "ENTERPRISEPREMIUM_NOPSTNCONF", "GUID": "26d45bd9-adf1-46cd-a9e1-51e9a5524128", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 Extra File Storage", "String_Id": "SHAREPOINTSTORAGE", "GUID": "99049c9c-6011-4908-bf17-15f496e6519d", "Famille": "Enterprise E-plans"}, {"Product_Display_Name": "Office 365 F3", "String_Id": "DESKLESSPACK", "GUID": "4b585984-651b-448a-9e53-3b10f069cf7f", "Famille": "Frontline"}, {"Product_Display_Name": "Office 365 F3 EEA (no Teams)", "String_Id": "Office_365_F3_EEA_(no_Teams)", "GUID": "d1f0495b-cb7b-4e11-8b85-daee7e7e5664", "Famille": "Frontline"}, {"Product_Display_Name": "Office 365 Midsize Business", "String_Id": "MIDSIZEPACK", "GUID": "04a7fb0d-32e0-4241-b4f5-3f7618cd1162", "Famille": "Autre"}, {"Product_Display_Name": "Office 365 Multi-Geo Capabilities", "String_Id": "OFFICE365_MULTIGEO", "GUID": "84951599-62b7-46f3-9c9d-30551b2ad607", "Famille": "Autre"}, {"Product_Display_Name": "Office 365 Small Business", "String_Id": "LITEPACK", "GUID": "bd09678e-b83c-4d3f-aaba-3dad4abd128b", "Famille": "Autre"}, {"Product_Display_Name": "Office 365 Small Business Premium", "String_Id": "LITEPACK_P2", "GUID": "fc14ec4a-4169-49a4-a51e-2c852931814b", "Famille": "Autre"}, {"Product_Display_Name": "OneDrive for Business (Plan 1)", "String_Id": "WACONEDRIVESTANDARD", "GUID": "e6778190-713e-4e4f-9119-8b8238de25df", "Famille": "OneDrive"}, {"Product_Display_Name": "OneDrive for Business (Plan 2)", "String_Id": "WACONEDRIVEENTERPRISE", "GUID": "ed01faf2-1d88-4947-ae91-45ca18703a96", "Famille": "OneDrive"}, {"Product_Display_Name": "Power BI", "String_Id": "POWER_BI_INDIVIDUAL_USER", "GUID": "e2767865-c3c9-4f09-9f99-6eee6eef861a", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Premium EM1", "String_Id": "PBI_PREMIUM_EM1_ADDON", "GUID": "bc757c42-5622-4583-a483-a9e537fcb71c", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Premium EM2", "String_Id": "PBI_PREMIUM_EM2_ADDON", "GUID": "8ecbd3c1-b108-437c-a859-e3c125e3f83f", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Premium P1", "String_Id": "PBI_PREMIUM_P1_ADDON", "GUID": "7b26f5ab-a763-4c00-a1ac-f6c4b5506945", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Premium Per User", "String_Id": "PBI_PREMIUM_PER_USER", "GUID": "c1d032e0-5619-4761-9b5c-75b6831e1711", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Premium Per User Add-On", "String_Id": "PBI_PREMIUM_PER_USER_ADDON", "GUID": "de376a03-6e5b-42ec-855f-093fb50b8ca5", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Premium Per User Dept", "String_Id": "PBI_PREMIUM_PER_USER_DEPT", "GUID": "f168a3fb-7bcf-4a27-98c3-c235ea4b78b4", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Pro", "String_Id": "POWER_BI_PRO", "GUID": "f8a1db68-be16-40ed-86d5-cb42ce701560", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Pro CE", "String_Id": "POWER_BI_PRO_CE", "GUID": "420af87e-8177-4146-a780-3786adaffbca", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI Pro Dept", "String_Id": "POWER_BI_PRO_DEPT", "GUID": "3a6a908c-09c5-406a-8170-8ebb63c42882", "Famille": "Power BI"}, {"Product_Display_Name": "Power BI for Office 365 Add-On", "String_Id": "POWER_BI_ADDON", "GUID": "45bc2c81-6072-436a-9b0b-3b12eefbc402", "Famille": "Power BI"}, {"Product_Display_Name": "Project Online With Project for Office 365", "String_Id": "PROJECTONLINE_PLAN_2", "GUID": "f82a60b8-1ee3-4cfb-a4fe-1c6a53c2656c", "Famille": "Autre"}, {"Product_Display_Name": "Project for Office 365", "String_Id": "PROJECTCLIENT", "GUID": "a10d5e58-74da-4312-95c8-76be4e5b75a0", "Famille": "Autre"}, {"Product_Display_Name": "SharePoint Online (Plan 1)", "String_Id": "SHAREPOINTSTANDARD", "GUID": "1fc08a02-8b3d-43b9-831e-f76859e04e1a", "Famille": "SharePoint"}, {"Product_Display_Name": "SharePoint Online (Plan 2)", "String_Id": "SHAREPOINTENTERPRISE", "GUID": "a9732ec9-17d9-494c-a51c-d6b45b384dcb", "Famille": "SharePoint"}, {"Product_Display_Name": "SharePoint Syntex", "String_Id": "Intelligent_Content_Services", "GUID": "f61d4aba-134f-44e9-a2a0-f81a5adb26e4", "Famille": "SharePoint"}, {"Product_Display_Name": "Teams Phone Mobile", "String_Id": "Operator_Connect_Mobile", "GUID": "b84d58c9-0a0d-46cf-8a4b-d9f23c1674d5", "Famille": "Teams"}, {"Product_Display_Name": "Teams Phone with Calling Plan", "String_Id": "MCOTEAMS_ESSENTIALS", "GUID": "ae2343d1-0999-43f6-ae18-d816516f6e78", "Famille": "Teams"}, {"Product_Display_Name": "Teams Premium (for Departments)", "String_Id": "Teams_Premium_(for_Departments)", "GUID": "52ea0e27-ae73-4983-a08f-13561ebdb823", "Famille": "Teams"}, {"Product_Display_Name": "Teams Rooms Premium", "String_Id": "MTR_PREM", "GUID": "4fb214cb-a430-4a91-9c91-4976763aa78f", "Famille": "Teams"}, {"Product_Display_Name": "Viva Goals User-led", "String_Id": "Viva_Goals_User_led", "GUID": "3a349c99-ffec-43d2-a2e8-6b97fcb71103", "Famille": "Viva"}, {"Product_Display_Name": "Viva Learning", "String_Id": "VIVA_LEARNING", "GUID": "c9d442fc-21fb-4bd7-89e0-a710d74987f6", "Famille": "Viva"}, {"Product_Display_Name": "Viva Topics", "String_Id": "TOPIC_EXPERIENCES", "GUID": "4016f256-b063-4864-816e-d818aad600c9", "Famille": "Viva"}, {"Product_Display_Name": "Windows 10/11 Enterprise E3", "String_Id": "WIN10_VDA_E3", "GUID": "6a0f6da5-0b87-4190-a6ae-9bb5a2b9546a", "Famille": "Autre"}, {"Product_Display_Name": "Windows 10/11 Enterprise E3", "String_Id": "WIN10_PRO_ENT_SUB", "GUID": "cb10e6cd-9da4-4992-867b-67546b1db821", "Famille": "Autre"}, {"Product_Display_Name": "Windows 10/11 Enterprise E3 VDA", "String_Id": "E3_VDA_only", "GUID": "d13ef257-988a-46f3-8fce-f47484dd4550", "Famille": "Autre"}, {"Product_Display_Name": "Windows 10/11 Enterprise E5", "String_Id": "WIN10_VDA_E5", "GUID": "488ba24a-39a9-4473-8ee5-19291e71b002", "Famille": "Autre"}, {"Product_Display_Name": "Windows 10/11 Enterprise E5 (Original)", "String_Id": "WIN_ENT_E5", "GUID": "1e7e1070-8ccb-4aca-b470-d7cb538cb07e", "Famille": "Autre"}]</script>
+<script type="application/json" id="d-graph">{"Licences & SKUs": {"color": "blue", "desc": "Inventaire et assignation des licences", "endpoints": [{"e": "subscribedSkus", "desc": "Liste des SKUs souscrits par le tenant (plans achetés, consommés, disponibles)", "field": "capabilityStatus, consumedUnits, prepaidUnits"}, {"e": "subscribedSkus/{subscribedSku-id}", "desc": "Détail d'un SKU : nb licences achetées, consommées, disponibles par service plan", "field": "skuPartNumber, capabilityStatus, consumedUnits, prepaidUnits.enabled"}, {"e": "users/{user-id}/assignedLicenses", "desc": "Licences assignées à un utilisateur (liste de SKU IDs)", "field": "skuId, disabledPlans"}, {"e": "users/{user-id}/licenseDetails", "desc": "Détail des licences avec les service plans activés/désactivés par utilisateur", "field": "skuId, skuPartNumber, servicePlans[].provisioningStatus"}, {"e": "groups/{group-id}/assignedLicenses", "desc": "Licences assignées via group-based licensing (GBL)", "field": "skuId, disabledPlans"}]}, "Utilisateurs & Comptes": {"color": "green", "desc": "Données identitaires et RH des comptes", "endpoints": [{"e": "users", "desc": "Liste de tous les utilisateurs du tenant avec leurs attributs", "field": "id, userPrincipalName, displayName, mail, accountEnabled, userType"}, {"e": "users/{user-id}", "desc": "Fiche complète d'un utilisateur", "field": "employeeId, employeeType, employeeLeaveDateTime, jobTitle, department, companyName, officeLocation, usageLocation, createdDateTime, onPremisesSyncEnabled"}, {"e": "users/{user-id}/mailboxSettings", "desc": "Paramètres boîte mail : taille, archivage, langue", "field": "mailboxSettingsKey, archiveFolder, language, timeZone"}, {"e": "users/{user-id}/manager", "desc": "Manager direct de l'utilisateur (pour hiérarchie organigramme)", "field": "id, displayName, userPrincipalName"}, {"e": "users/{user-id}/memberOf", "desc": "Groupes et rôles dont est membre l'utilisateur", "field": "id, displayName, groupTypes"}, {"e": "users/{user-id}/drive", "desc": "Informations OneDrive de l'utilisateur (quota, espace utilisé)", "field": "quota.used, quota.total, quota.remaining, lastModifiedDateTime"}]}, "Activité & Adoption": {"color": "orange", "desc": "Signaux d'usage pour qualifier les licences actives/inactives", "endpoints": [{"e": "auditLogs/signIns", "desc": "Journal des connexions : dernière activité interactive par utilisateur", "field": "userPrincipalName, createdDateTime, appDisplayName, ipAddress, status, isInteractive"}, {"e": "reports/getOffice365ActiveUserDetail(period='D90')", "desc": "Activité O365 par utilisateur sur 30/60/90j : Exchange, OneDrive, SharePoint, Teams, Yammer", "field": "userPrincipalName, lastActivityDate, hasExchangeLicense, hasTeamsLicense, isDeleted"}, {"e": "reports/getMailboxUsageDetail(period='D30')", "desc": "Usage boîte mail : taille, quota, lecture, envoi — seuil critique pour downgrade plan Exchange", "field": "userPrincipalName, storageUsedInBytes, issueWarningQuotaInBytes, prohibitSendReceiveQuotaInBytes, itemCount"}, {"e": "reports/getOneDriveUsageAccountDetail(period='D30')", "desc": "Usage OneDrive par utilisateur : espace occupé — critère éligibilité downgrade", "field": "ownerPrincipalName, storageUsedInBytes, storageAllocatedInBytes, activeFileCount"}, {"e": "reports/getTeamsUserActivityUserDetail(period='D30')", "desc": "Activité Teams individuelle : messages, appels, réunions, partages", "field": "userPrincipalName, lastActivityDate, teamChatMessageCount, privateChatMessageCount, callCount, meetingCount"}, {"e": "reports/getSharePointActivityUserDetail(period='D30')", "desc": "Activité SharePoint par utilisateur : fichiers consultés, modifiés, partagés", "field": "userPrincipalName, lastActivityDate, viewedOrEditedFileCount, syncedFileCount"}, {"e": "reports/getOffice365ActiveUserCounts(period='D30')", "desc": "Comptages agrégés d'utilisateurs actifs par service sur la période", "field": "reportDate, office365, exchange, oneDrive, sharePoint, teams, yammer"}]}, "Groupes & Provisioning": {"color": "purple", "desc": "Gestion des groupes et du provisioning automatique (GBL)", "endpoints": [{"e": "groups", "desc": "Liste de tous les groupes (sécurité, M365, distribution) — clé pour l'audit GBL", "field": "id, displayName, groupTypes, licenseProcessingState, assignedLicenses, membershipRule"}, {"e": "groups/{group-id}/members", "desc": "Membres d'un groupe (pour reconciliation licence/utilisateur)", "field": "id, userPrincipalName, displayName, accountEnabled"}, {"e": "groups/{group-id}/assignedLicenses", "desc": "Licences assignées au groupe via GBL — source de vérité pour le provisioning automatique", "field": "skuId, disabledPlans"}, {"e": "auditLogs/provisioning", "desc": "Historique des opérations de provisioning : assignations/révocations de licences automatiques", "field": "action, status, targetId, modifiedProperties, initiatedBy"}]}, "Organisation & Gouvernance": {"color": "red", "desc": "Tenant, sécurité et gouvernance des identités", "endpoints": [{"e": "organization", "desc": "Informations du tenant : nom, domaines vérifiés, paramètres de sécurité", "field": "id, displayName, verifiedDomains, assignedPlans, provisionedPlans"}, {"e": "directoryRoles", "desc": "Rôles d'administration actifs dans le tenant (Global Admin, Billing Admin…)", "field": "id, displayName, roleTemplateId"}, {"e": "directoryRoles/{directoryRole-id}/members", "desc": "Membres d'un rôle admin — audit des accès privilégiés avec licence", "field": "id, userPrincipalName, accountEnabled"}, {"e": "devices", "desc": "Inventaire des appareils enregistrés (Entra ID / Intune) — corrélation device/utilisateur/licence", "field": "id, displayName, operatingSystem, trustType, accountEnabled, registeredOwners"}, {"e": "identity/conditionalAccess/policies", "desc": "Politiques d'accès conditionnel — contexte sécurité lié aux licences EMS/P1/P2", "field": "id, displayName, state, conditions, grantControls"}]}}</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#1a1a18;font-size:14px;line-height:1.6}
+.nav{display:flex;align-items:center;background:#fff;border-bottom:1px solid #e2e2dc;position:sticky;top:0;z-index:100;padding:0 1.2rem;overflow-x:auto}
+.nav-brand{font-size:13px;font-weight:600;padding:.85rem 1.2rem .85rem 0;border-right:1px solid #e2e2dc;margin-right:.75rem;white-space:nowrap;flex-shrink:0}
+.nav-brand em{color:#3b6de8;font-style:normal}
+.ntab{font-size:12px;color:#666;padding:.85rem .8rem;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;font-family:inherit;white-space:nowrap;flex-shrink:0}
+.ntab:hover{color:#1a1a18}
+.ntab.on{color:#1a1a18;border-bottom-color:#3b6de8;font-weight:600}
+.tab{display:none}.tab.on{display:block}
+.wrap{max-width:840px;margin:0 auto;padding:1.75rem 1.25rem}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#3b6de8;margin-bottom:.5rem}
+.h1{font-size:22px;font-weight:700;line-height:1.3;margin-bottom:.8rem}
+.sub{font-size:13px;color:#555;line-height:1.7;max-width:600px}
+.slabel{display:block;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#aaa;margin-bottom:1rem;margin-top:1.75rem}
+.divline{border:none;border-top:1px solid #e2e2dc;margin:1.75rem 0 0}
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:36px 1fr;gap:.85rem;padding:1.25rem 0;border-bottom:1px solid #e2e2dc}
+.step:last-child{border-bottom:none}
+.sn{width:28px;height:28px;border-radius:50%;background:#eeeeed;border:1px solid #d8d8d4;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#666;flex-shrink:0}
+.st{font-size:13px;font-weight:600;margin-bottom:.28rem}
+.sd{font-size:12px;color:#555;line-height:1.6;margin-bottom:.5rem}
+.tags{display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:11px;padding:2px 7px;border-radius:3px;background:#eeeeed;border:1px solid #dcdcd8;color:#555}
+.tag-b{background:#e6edfd;border-color:#bfcef7;color:#2850b8}
+.vgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e2e2dc;border:1px solid #e2e2dc;border-radius:8px;overflow:hidden}
+.vc{background:#fff;padding:.9rem}
+.vt{font-size:13px;font-weight:600;margin-bottom:.25rem}
+.vd{font-size:12px;color:#666;line-height:1.5;margin-bottom:.5rem}
+.albl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#aaa;font-weight:600;margin-bottom:3px}
+.chips{display:flex;gap:4px;flex-wrap:wrap}
+.chip{font-size:10px;padding:1px 6px;border-radius:3px;background:#eeeeed;border:1px solid #dcdcd8;color:#666}
+.qblock{border:1px solid #e2e2dc;border-radius:8px;overflow:hidden;margin-bottom:1.25rem;background:#fff}
+.qhead{display:flex;align-items:center;gap:8px;padding:.55rem .9rem;background:#f5f5f2;border-bottom:1px solid #e2e2dc}
+.qn{font-size:11px;font-weight:700;color:#3b6de8;text-transform:uppercase;letter-spacing:.06em}
+.qt{font-size:13px;font-weight:600}
+table.kpi{width:100%;border-collapse:collapse;table-layout:fixed}
+table.kpi th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;padding:6px 8px;text-align:left;background:#f8f8f6;border-bottom:1px solid #e2e2dc;white-space:nowrap}
+table.kpi td{font-size:11px;color:#444;padding:7px 8px;vertical-align:top;line-height:1.5;border-bottom:1px solid #ebebea;word-break:break-word}
+table.kpi tr:last-child td{border-bottom:none}
+table.kpi tr:nth-child(even) td{background:#f8f8f6}
+.kn{font-weight:600;color:#1a1a18;font-size:11px}
+.mono{font-family:'SF Mono',Consolas,monospace;font-size:10px;color:#888;background:#eeeeed;padding:1px 4px;border-radius:2px;display:inline-block;margin-top:1px}
+.bd{display:inline-block;font-size:10px;padding:2px 5px;border-radius:3px;font-weight:500;line-height:1.4;margin-top:2px}
+.bdr{background:#fdecea;color:#b83030;border:1px solid #f4bab8}
+.bdo{background:#fff3e0;color:#a85800;border:1px solid #f5d49a}
+.bdb{background:#e6edfd;color:#2850b8;border:1px solid #bfcef7}
+.bdg{background:#e6f4e8;color:#276030;border:1px solid #b0d8b4}
+.kdbox{background:#e6edfd;border:1px solid #bfcef7;border-radius:0 0 6px 6px;padding:.6rem .9rem;font-size:12px;color:#2850b8;line-height:1.5}
+.kdbox strong{font-weight:600}
+.cmeta{display:flex;gap:1.75rem;flex-wrap:wrap;margin:.8rem 0 1rem}
+.mi{display:flex;flex-direction:column;gap:2px}
+.ml{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#aaa;font-weight:600}
+.mv{font-size:13px;font-weight:600}
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.cc{background:#fff;border:1px solid #e2e2dc;border-radius:7px;padding:.85rem}
+.ct{font-size:12px;font-weight:600;margin-bottom:.2rem}
+.cd{font-size:11px;color:#666;line-height:1.5}
+.insight{background:#f7f7f5;border:1px solid #e2e2dc;border-left:2px solid #3b6de8;border-radius:0 6px 6px 0;padding:.75rem .9rem;margin-top:.65rem}
+.il{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#3b6de8;font-weight:600;margin-bottom:.25rem}
+.it{font-size:12px;color:#555;line-height:1.6}
+.warn-box{background:#fff3e0;border:1px solid #f5d49a;border-left:2px solid #ea580c;border-radius:0 6px 6px 0;padding:.75rem .9rem;margin-top:.65rem}
+.warn-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#ea580c;font-weight:600;margin-bottom:.25rem}
+.warn-txt{font-size:12px;color:#555;line-height:1.6}
+.dlist{display:flex;flex-direction:column;gap:8px}
+.dcard{background:#fff;border:1px solid #e2e2dc;border-radius:7px;padding:.9rem 1rem;display:flex;align-items:flex-start;gap:.9rem}
+.dcard-icon{width:30px;height:30px;border-radius:5px;background:#f2f2ef;border:1px solid #e2e2dc;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.dcard-body{flex:1;min-width:0}
+.dcard-name{font-size:13px;font-weight:600;margin-bottom:.2rem}
+.dcard-desc{font-size:11px;color:#555;line-height:1.5;margin-bottom:.4rem}
+.dcard-tags{display:flex;flex-wrap:wrap;gap:3px}
+.dcard-ref{flex-shrink:0;font-size:10px;color:#3b6de8;background:#e6edfd;border:1px solid #bfcef7;border-radius:4px;padding:3px 8px;white-space:nowrap;align-self:center;font-weight:500}
+.rgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.rcard{background:#fff;border:1px solid #e2e2dc;border-radius:7px;padding:.95rem}
+.rnum{font-size:26px;font-weight:700;color:#3b6de8;line-height:1;margin-bottom:.18rem}
+.rlbl{font-size:12px;font-weight:600;margin-bottom:.15rem}
+.rdet{font-size:11px;color:#666;line-height:1.4}
+.tl{padding-left:1.25rem;border-left:1px solid #d8d8d4;margin-left:.2rem}
+.tl-item{position:relative;margin-bottom:1rem}.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-1.5rem;top:3px;width:10px;height:10px;border-radius:50%;background:#3b6de8;border:2px solid #f7f7f5}
+.tl-date{font-size:11px;font-weight:600;color:#3b6de8;margin-bottom:.12rem}
+.tl-phase{font-size:13px;font-weight:600;margin-bottom:.15rem}
+.tl-desc{font-size:12px;color:#666;line-height:1.5}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pcard{background:#fff;border:1px solid #e2e2dc;border-radius:7px;padding:.8rem}
+.pname{font-size:12px;font-weight:600;margin-bottom:.25rem}
+.plic{font-size:10px;padding:2px 6px;border-radius:3px;background:#e6edfd;color:#2850b8;border:1px solid #bfcef7;display:inline-block;margin-bottom:.3rem}
+.pwho{font-size:11px;color:#555;margin-bottom:.25rem;line-height:1.4}
+.puse{font-size:10px;color:#aaa;line-height:1.4}
+.kd-panel{background:#fff;border:1px solid #e2e2dc;border-radius:8px;overflow:hidden}
+.kd-ph{display:flex;align-items:center;justify-content:space-between;padding:.6rem .9rem;background:#f5f5f2;border-bottom:1px solid #e2e2dc}
+.kd-ph-title{font-size:12px;font-weight:600}
+.kd-ph-sub{font-size:11px;color:#aaa}
+.kd-body{padding:.7rem .9rem}
+.kd-title{font-size:11px;font-weight:600;color:#3b6de8;margin-bottom:.45rem;display:flex;align-items:center;gap:5px}
+.kd-dot{width:8px;height:8px;border-radius:50%;background:#3b6de8;flex-shrink:0}
+.kd-notes-list{display:flex;flex-direction:column;gap:4px;min-height:10px;margin-bottom:.45rem}
+.kd-note-item{font-size:11px;background:#e6edfd;border:1px solid #bfcef7;border-radius:4px;padding:4px 22px 4px 8px;color:#2850b8;line-height:1.4;position:relative;word-break:break-word}
+.kd-del{position:absolute;top:3px;right:5px;font-size:11px;cursor:pointer;color:#8898cc;background:none;border:none;padding:0;font-family:inherit}
+.kd-row{display:flex;gap:4px}
+.kd-input{flex:1;font-size:11px;padding:5px 7px;border:1px solid #dcdcd8;border-radius:4px;background:#fff;font-family:inherit;color:#1a1a18;resize:none;height:42px}
+.kd-add-btn{font-size:11px;padding:5px 9px;border:none;background:#3b6de8;color:#fff;border-radius:4px;cursor:pointer;align-self:flex-end;font-family:inherit}
+.kd-add-btn:hover{background:#2850b8}
+.toolbar{display:flex;gap:.65rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.s-input{flex:1;min-width:180px;font-size:13px;padding:6px 10px;border:1px solid #dcdcd8;border-radius:6px;background:#fff;font-family:inherit}
+.s-input:focus{outline:none;border-color:#3b6de8}
+.f-btns{display:flex;gap:3px;flex-wrap:wrap}
+.fbtn{font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid #dcdcd8;background:#fff;cursor:pointer;color:#555;font-family:inherit;white-space:nowrap}
+.fbtn:hover{border-color:#3b6de8;color:#3b6de8}
+.fbtn.on{background:#3b6de8;border-color:#3b6de8;color:#fff}
+.rcount{font-size:11px;color:#aaa;white-space:nowrap}
+table.sku-t{width:100%;border-collapse:collapse;border:1px solid #e2e2dc;border-radius:8px;overflow:hidden;background:#fff}
+table.sku-t th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;padding:6px 9px;text-align:left;background:#f5f5f2;border-bottom:1px solid #e2e2dc;white-space:nowrap}
+table.sku-t td{font-size:11px;color:#444;padding:6px 9px;border-bottom:1px solid #f0f0ee;vertical-align:top;word-break:break-word}
+table.sku-t tr:last-child td{border-bottom:none}
+table.sku-t tr:hover td{background:#fafaf8}
+.sku-name{font-weight:500;color:#1a1a18;font-size:11px}
+.sku-id{font-family:'SF Mono',Consolas,monospace;font-size:10px;color:#888;word-break:break-all}
+.fam-badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:3px;white-space:nowrap;font-weight:500}
+.fEnt{background:#e6edfd;color:#2850b8;border:1px solid #bfcef7}
+.fBus{background:#e6f4e8;color:#276030;border:1px solid #b0d8b4}
+.fFro{background:#fff3e0;color:#a85800;border:1px solid #f5d49a}
+.fEMS{background:#fdecea;color:#b83030;border:1px solid #f4bab8}
+.fExc{background:#f3e8ff;color:#6b21a8;border:1px solid #d8b4fe}
+.fTea{background:#e0f2fe;color:#0c4a6e;border:1px solid #bae6fd}
+.fSPO{background:#fef9c3;color:#854d0e;border:1px solid #fde68a}
+.fOD{background:#ffe4e6;color:#9f1239;border:1px solid #fecdd3}
+.fCop{background:#f0fdf4;color:#14532d;border:1px solid #bbf7d0}
+.fPBI{background:#fdf2f8;color:#701a75;border:1px solid #f5d0fe}
+.fViv{background:#fff7ed;color:#7c2d12;border:1px solid #fed7aa}
+.fApp{background:#f0f9ff;color:#0c4a6e;border:1px solid #bae6fd}
+.fAut{background:#f5f5f2;color:#555;border:1px solid #dcdcd8}
+.hr-row{display:none}
+.cat-block{border:1px solid #e2e2dc;border-radius:8px;overflow:hidden;margin-bottom:.9rem;background:#fff}
+.cat-head{display:flex;align-items:center;gap:.65rem;padding:.6rem .9rem;cursor:pointer;user-select:none;border-bottom:1px solid #e2e2dc}
+.cat-head:hover{background:#fafaf8}
+.c-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.c-blue{background:#3b6de8}.c-green{background:#16a34a}.c-orange{background:#ea580c}
+.c-purple{background:#7c3aed}.c-red{background:#dc2626}
+.cat-name{font-size:13px;font-weight:600}
+.cat-desc{font-size:11px;color:#aaa;margin-left:auto;text-align:right;max-width:200px}
+.cat-chev{font-size:11px;color:#aaa;flex-shrink:0;transition:transform .18s}
+.cat-chev.o{transform:rotate(90deg)}
+.cat-body{display:none}.cat-body.o{display:block}
+.ep-row{display:flex;gap:.7rem;padding:.75rem .9rem;border-bottom:1px solid #f0f0ee;align-items:flex-start}
+.ep-row:last-child{border-bottom:none}
+.ep-row:hover{background:#fafaf8}
+.ep-left{flex:1;min-width:0}
+.ep-path{font-family:'SF Mono',Consolas,monospace;font-size:10px;color:#2850b8;word-break:break-all;margin-bottom:.25rem}
+.ep-desc{font-size:11px;color:#444;line-height:1.5;margin-bottom:.25rem}
+.ep-fields{font-size:10px;color:#888;font-family:'SF Mono',Consolas,monospace;background:#f5f5f2;padding:2px 5px;border-radius:3px;word-break:break-all}
+.ep-v1{font-size:10px;padding:2px 5px;border-radius:3px;background:#e6f4e8;color:#276030;border:1px solid #b0d8b4;font-weight:500;flex-shrink:0}
+.g-hidden{display:none!important}
+/* MARCHE */
+.sol-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.sol-card{background:#fff;border:1px solid #e2e2dc;border-radius:8px;overflow:hidden}
+.sol-header{padding:.85rem 1rem;border-bottom:1px solid #e2e2dc}
+.sol-logo{font-size:14px;font-weight:700;margin-bottom:.2rem}
+.sol-tagline{font-size:11px;color:#666;line-height:1.4}
+.sol-body{padding:.85rem 1rem}
+.sol-stitle{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:.4rem;margin-top:.65rem}
+.sol-stitle:first-child{margin-top:0}
+.sol-adn{font-size:11px;color:#444;line-height:1.5;margin-bottom:.5rem}
+.sol-list{display:flex;flex-direction:column;gap:3px}
+.sol-item{font-size:11px;color:#333;line-height:1.4;padding-left:.85rem;position:relative}
+.sol-item::before{content:'✓';position:absolute;left:0;color:#16a34a;font-size:10px;font-weight:700;top:1px}
+.sol-item.neg::before{content:'✗';color:#b83030}
+.sol-item.take::before{content:'→';color:#3b6de8}
+.sol-footer{padding:.65rem 1rem;background:#f8f8f6;border-top:1px solid #e2e2dc;font-size:11px;color:#888}
+.comp-wrap{overflow-x:auto;border:1px solid #e2e2dc;border-radius:8px;background:#fff;margin-bottom:1.5rem}
+table.comp{width:100%;border-collapse:collapse;min-width:580px}
+table.comp th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;padding:7px 9px;text-align:left;background:#f5f5f2;border-bottom:1px solid #e2e2dc}
+table.comp th.kd-col{color:#3b6de8;background:#f0f4fe}
+table.comp td{font-size:11px;color:#444;padding:7px 9px;border-bottom:1px solid #ebebea;vertical-align:top;line-height:1.45}
+table.comp tr:last-child td{border-bottom:none}
+table.comp tr:hover td{background:#fafaf8}
+table.comp td.kd-col{background:#f8faff}
+table.comp tr:hover td.kd-col{background:#edf1fd}
+.dim-name{font-weight:600;color:#1a1a18;font-size:11px}
+.c-yes{color:#16a34a;font-weight:600}
+.c-no{color:#bbb}
+.c-partial{color:#a85800}
+.c-strong{color:#16a34a;font-weight:700}
+.model-step{border:1px solid #e2e2dc;border-radius:8px;overflow:hidden;margin-bottom:.85rem;background:#fff}
+.model-head{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;background:#f5f5f2;border-bottom:1px solid #e2e2dc}
+.model-num{width:26px;height:26px;border-radius:50%;background:#3b6de8;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.model-title{font-size:13px;font-weight:600}
+.model-desc-head{font-size:11px;color:#888;margin-left:auto;text-align:right;max-width:280px}
+.model-body{padding:.85rem 1rem}
+.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:.65rem}
+.msol{border:1px solid #e2e2dc;border-radius:6px;padding:.65rem}
+.msol-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+.msol-text{font-size:10px;color:#555;line-height:1.4}
+.msol.cov{border-color:#b0d8b4;background:#f0fdf4}
+.msol.cov .msol-name{color:#276030}
+.msol.ncov{border-color:#f4bab8;background:#fefafa}
+.msol.ncov .msol-name{color:#b83030}
+.model-anthony{background:#f0f4fe;border:1px solid #bfcef7;border-radius:6px;padding:.65rem;font-size:11px;color:#2850b8;line-height:1.4}
+.model-anthony strong{font-weight:600}
+.gaps-table{width:100%;border-collapse:collapse;border:1px solid #e2e2dc;border-radius:8px;overflow:hidden;background:#fff}
+.gaps-table th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;padding:6px 9px;text-align:left;background:#f5f5f2;border-bottom:1px solid #e2e2dc}
+.gaps-table td{font-size:11px;color:#444;padding:7px 9px;border-bottom:1px solid #ebebea;vertical-align:top;line-height:1.45}
+.gaps-table tr:last-child td{border-bottom:none}
+.p-hte{color:#b83030;font-weight:600;font-size:10px;padding:2px 5px;background:#fdecea;border:1px solid #f4bab8;border-radius:3px;white-space:nowrap}
+.p-moy{color:#a85800;font-weight:600;font-size:10px;padding:2px 5px;background:#fff3e0;border:1px solid #f5d49a;border-radius:3px;white-space:nowrap}
+.p-crit{color:#fff;font-weight:600;font-size:10px;padding:2px 5px;background:#3b6de8;border:1px solid #3b6de8;border-radius:3px;white-space:nowrap}
+.src-badge{font-size:10px;padding:2px 5px;border-radius:3px;background:#f5f5f2;border:1px solid #e2e2dc;color:#666;white-space:nowrap}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">Anthony Bouilleau &middot; <em>M365 FinOps</em></div>
+  <div style="display:flex">
+    <button class="ntab" id="btn-expertise">Expertise</button>
+    <button class="ntab" id="btn-framework">Framework FinOps</button>
+    <button class="ntab" id="btn-geodis">Cas GEODIS</button>
+    <button class="ntab" id="btn-printemps">Cas Printemps</button>
+    <button class="ntab" id="btn-marche">March&#233;</button>
+    <button class="ntab" id="btn-skus">SKUs</button>
+    <button class="ntab" id="btn-graph">Graph API</button>
+  </div>
+</nav>
+
+<!-- ========== EXPERTISE ========== -->
+<div class="tab" id="tab-expertise">
+<div class="wrap">
+  <div class="eyebrow">Reporting FinOps M365</div>
+  <h1 class="h1">On ne g&#232;re bien que ce qu&#8217;on mesure &#8212; et on mesure ce qui compte pour le business.</h1>
+  <p class="sub">Transformer des donn&#233;es de consommation M365 en outil de pilotage, c&#8217;est d&#8217;abord un travail de traduction : entre la technique et la finance, entre le tenant et l&#8217;organigramme, entre la donn&#233;e brute et la d&#233;cision.</p>
+  <span class="slabel">La m&#233;thode en 3 actes</span>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div><div class="st">Qualifier &#8212; Qui est vraiment dans le tenant ?</div><div class="sd">Avant tout tableau de bord, il faut savoir &#224; quoi correspond chaque compte. Actif, inactif, g&#233;n&#233;rique, bloqu&#233;, arriv&#233;e r&#233;cente &#8212; la donn&#233;e brute M365 ne fait pas cette distinction. La matrice de qualification croise les signaux AD pour cat&#233;goriser chaque identit&#233;.</div><div class="tags"><span class="tag tag-b">Matrice inactifs</span><span class="tag">Azure AD</span><span class="tag">Graph API</span><span class="tag">BDES check</span><span class="tag">EmployeeType</span></div></div></div>
+    <div class="step"><div class="sn">2</div><div><div class="st">D&#233;cider &#8212; Quelle licence pour quel usage r&#233;el ?</div><div class="sd">La mod&#233;lisation financi&#232;re vient apr&#232;s la qualification, jamais avant. Une fois qu&#8217;on sait qui utilise quoi, on peut construire des profils usage/licence coh&#233;rents, identifier les sur-allocations et projeter les &#233;conomies r&#233;elles.</div><div class="tags"><span class="tag tag-b">Profils utilisateur</span><span class="tag">Mod&#233;lisation financi&#232;re</span><span class="tag">CDC dashboard</span><span class="tag">E1 / E3 / F1</span></div></div></div>
+    <div class="step"><div class="sn">3</div><div><div class="st">Piloter &#8212; Un dashboard qui vit avec l&#8217;organisation</div><div class="sd">Le dashboard n&#8217;est pas un livrable de fin de mission. Structure modulaire, filtrages crois&#233;s avec le SIRH, alertes gouvernance automatis&#233;es. Chaque vue r&#233;pond &#224; une audience pr&#233;cise.</div><div class="tags"><span class="tag tag-b">Dashboard op&#233;rationnel</span><span class="tag">Vue groupe</span><span class="tag">Conformit&#233; licences</span><span class="tag">Adoption workloads</span><span class="tag">Refacturation interne</span></div></div></div>
+  </div>
+  <span class="slabel">Les 4 vues fondamentales</span>
+  <div class="vgrid">
+    <div class="vc"><div class="vt">Consommation et co&#251;ts</div><div class="vd">Licences acquises vs assign&#233;es vs actives. Co&#251;t du parc r&#233;el, tendance 6 mois. Segmentation contrat cadre et achats post&#233;rieurs.</div><div class="albl">Audience</div><div class="chips"><span class="chip">DAF</span><span class="chip">Direction</span><span class="chip">DSI</span></div></div>
+    <div class="vc"><div class="vt">Adoption par workload</div><div class="vd">Taux d&#8217;activit&#233; 30j par service (Teams, Exchange, SharePoint, OneDrive). Co&#251;t du non-usage par entit&#233;.</div><div class="albl">Audience</div><div class="chips"><span class="chip">DSI</span><span class="chip">IT</span><span class="chip">M&#233;tiers</span></div></div>
+    <div class="vc"><div class="vt">Refacturation interne</div><div class="vd">Licences attribu&#233;es par entit&#233;, crois&#233;es SIRH. Benchmark inter-entit&#233;s, cl&#233;s de r&#233;partition par LoB / r&#233;gion.</div><div class="albl">Audience</div><div class="chips"><span class="chip">DAF</span><span class="chip">CDG</span><span class="chip">Entit&#233;s</span></div></div>
+    <div class="vc"><div class="vt">Gouvernance et alertes</div><div class="vd">Comptes inactifs avec licence, comptes bloqu&#233;s, double assignation de plan, licences sans EMS.</div><div class="albl">Audience</div><div class="chips"><span class="chip">IT</span><span class="chip">DSI</span><span class="chip">SAM</span></div></div>
+  </div>
+  <hr class="divline">
+</div>
+</div>
+
+<!-- ========== FRAMEWORK ========== -->
+<div class="tab" id="tab-framework">
+<div class="wrap">
+  <div class="eyebrow">P&#233;rim&#232;tre cible : O365 &#183; Adobe &#183; Salesforce</div>
+  <h1 class="h1">4 questions pour piloter un parc de licences</h1>
+  <p class="sub">Un framework de reporting FinOps pens&#233; pour r&#233;pondre aux questions des &#233;quipes IT, Finance et Direction &#8212; aliment&#233; automatiquement par Know &amp; Decide.</p>
+  <span class="slabel" style="margin-top:1.5rem">KPIs par question business</span>
+  <div class="qblock"><div class="qhead"><span class="qn">Q1</span><span class="qt">Qu&#8217;est-ce que je poss&#232;de ?</span></div>
+  <table class="kpi"><thead><tr><th style="width:23%">KPI</th><th style="width:20%">Ce que &#231;a mesure</th><th style="width:22%">Formule</th><th style="width:21%">Source K&amp;D</th><th style="width:14%">Seuil d&#8217;alerte</th></tr></thead><tbody>
+    <tr><td><span class="kn">Inventaire licences par SKU</span></td><td>Volume global acquis par type de plan</td><td>Nb licences achet&#233;es : MF1, E1, E1+Apps, E3, F1&#8230;</td><td>Admin Center &#8594; Data Discover</td><td><span class="bd bdb">Contrat cadre<br>+ avenants</span></td></tr>
+    <tr><td><span class="kn">Taux d&#8217;assignation (nominatifs)</span></td><td>% licences attribu&#233;es &#8212; nominatifs. BAL shared hors scope</td><td><span class="mono">Assign&#233;es / Acquises &#215; 100</span></td><td>Entra ID &#8594; Data Discover</td><td><span class="bd bdo">&lt; 90%<br>&#8594; surveiller</span></td></tr>
+    <tr><td><span class="kn">Co&#251;t du parc mensuel</span></td><td>Co&#251;t r&#233;el engag&#233; sur la p&#233;riode</td><td><span class="mono">&#931; (assign&#233;es &#215; co&#251;t unitaire SKU)</span></td><td>Contrat Microsoft + Admin Center</td><td><span class="bd bdb">Suivi budget</span></td></tr>
+    <tr><td><span class="kn">&#201;volution M-1 / N-1</span></td><td>Tendance volume et co&#251;t dans le temps</td><td>Comparaison mensuelle et annuelle par SKU</td><td>Data Report (historique K&amp;D)</td><td><span class="bd bdo">+5% / mois</span></td></tr>
+    <tr><td><span class="kn">P&#233;rim&#232;tre multi-&#233;diteurs</span></td><td>Vision consolid&#233;e O365 + Adobe + Salesforce</td><td>Agr&#233;gation inter-sources par utilisateur / entit&#233;</td><td>Data Discover (multi-connecteurs)</td><td><span class="bd bdb">Inventaire initial<br>(setup)</span></td></tr>
+  </tbody></table>
+  <div class="kdbox"><strong>K&amp;D :</strong> Data Discover connecte le tenant M365 et distingue stock contractuel, engagements et achats ponctuels.</div></div>
+  <div class="qblock"><div class="qhead"><span class="qn">Q2</span><span class="qt">Par qui c&#8217;est utilis&#233; ?</span></div>
+  <table class="kpi"><thead><tr><th style="width:23%">KPI</th><th style="width:20%">Ce que &#231;a mesure</th><th style="width:22%">Formule</th><th style="width:21%">Source K&amp;D</th><th style="width:14%">Seuil d&#8217;alerte</th></tr></thead><tbody>
+    <tr><td><span class="kn">Licences par type d&#8217;employ&#233;</span></td><td>R&#233;partition interne / externe / stagiaire / prestataire</td><td>Croisement EmployeeType (AD) &#215; licence assign&#233;e</td><td>AD + SIRH &#8594; Data Discover</td><td><span class="bd bdr">Stagiaire sur E5<br>&#8594; alerte</span></td></tr>
+    <tr><td><span class="kn">Couverture SIRH</span></td><td>% de comptes M365 r&#233;concili&#233;s avec un employ&#233; RH actif</td><td><span class="mono">Appair&#233;s / Total &#215; 100</span></td><td>SIRH + AD (jointure UPN)</td><td><span class="bd bdr">&lt; 95%<br>&#8594; anomalie</span></td></tr>
+    <tr><td><span class="kn">Licences sans correspondance RH</span></td><td>Comptes avec licence mais absent du SIRH actif</td><td>Comptes AD actifs non pr&#233;sents dans l&#8217;export SIRH</td><td>SIRH + Entra ID &#8594; Data Management</td><td><span class="bd bdr">&gt; 0<br>&#8594; &#224; traiter</span></td></tr>
+    <tr><td><span class="kn">Distribution par entit&#233; / LoB</span></td><td>Nb et co&#251;t par entit&#233; l&#233;gale et segment m&#233;tier</td><td>Croisement SIRH (d&#233;partement, entit&#233;) &#215; assignation</td><td>SIRH + Admin Center &#8594; Data Report</td><td><span class="bd bdb">Base<br>refacturation</span></td></tr>
+  </tbody></table>
+  <div class="kdbox"><strong>K&amp;D :</strong> Data Discover croise Entra ID avec l&#8217;export SIRH via l&#8217;UPN. En dessous de 95% de r&#233;conciliation, Data Management g&#233;n&#232;re automatiquement une liste de discordances.</div></div>
+  <div class="qblock"><div class="qhead"><span class="qn">Q3</span><span class="qt">Comment c&#8217;est utilis&#233; ?</span></div>
+  <table class="kpi"><thead><tr><th style="width:23%">KPI</th><th style="width:20%">Ce que &#231;a mesure</th><th style="width:22%">Formule</th><th style="width:21%">Source K&amp;D</th><th style="width:14%">Seuil d&#8217;alerte</th></tr></thead><tbody>
+    <tr><td><span class="kn">Comptes inactifs avec licence</span></td><td>Licences pay&#233;es sur des comptes sans activit&#233; r&#233;cente</td><td><span class="mono">lastSignIn &gt; 90j<br>ET licence active</span></td><td>Entra ID (signInActivity) &#8594; Data Discover</td><td><span class="bd bdr">&gt; 0<br>&#8594; &#224; traiter</span></td></tr>
+    <tr><td><span class="kn">Taux d&#8217;activit&#233; par workload</span></td><td>Usage r&#233;el des services (Exchange, Teams, SharePoint&#8230;)</td><td><span class="mono">Actifs 30j / Assign&#233;s par workload</span></td><td>Graph API Reports &#8594; Data Discover</td><td><span class="bd bdo">&#192; configurer<br>au setup</span></td></tr>
+    <tr><td><span class="kn">Comptes bloqu&#233;s avec licence</span></td><td>Comptes AD d&#233;sactiv&#233;s mais licence toujours assign&#233;e</td><td>AccountEnabled = False ET licence &#8800; null</td><td>Entra ID &#8594; Data Management</td><td><span class="bd bdr">&gt; 0<br>&#8594; &#224; traiter</span></td></tr>
+    <tr><td><span class="kn">Double assignation de plan</span></td><td>Utilisateurs avec 2 plans redondants (ex. E3 + E1)</td><td>Nb SKUs actifs par utilisateur &gt; 1 plan principal</td><td>Admin Center &#8594; Data Management</td><td><span class="bd bdr">&gt; 0<br>&#8594; &#224; traiter</span></td></tr>
+    <tr><td><span class="kn">Licences sans EMS</span></td><td>Comptes avec plan O365 mais sans s&#233;curit&#233; EMS/Intune</td><td>Plan assign&#233; sans EMS E3 ou &#233;quivalent</td><td>Admin Center &#8594; Data Discover</td><td><span class="bd bdo">&#192; configurer<br>au setup</span></td></tr>
+    <tr><td><span class="kn">Profil vs usage r&#233;el</span></td><td>Ad&#233;quation profil attribu&#233; et usage observ&#233;. Crit&#232;res : taille BAL, archive, OneDrive, Teams</td><td>Profil Full (E3) ET usage &lt; seuil &#8594; candidat downgrade</td><td>Graph API + matrice profils &#8594; Data Report</td><td><span class="bd bdo">&#192; configurer<br>au setup</span></td></tr>
+  </tbody></table>
+  <div class="kdbox"><strong>K&amp;D :</strong> Data Management impl&#233;mente les r&#232;gles de qualification comme des contr&#244;les automatis&#233;s. Les seuils % sont param&#233;trables lors du setup client.</div></div>
+  <div class="qblock"><div class="qhead"><span class="qn">Q4</span><span class="qt">Axes d&#8217;&#233;conomie et d&#8217;optimisation</span></div>
+  <table class="kpi"><thead><tr><th style="width:23%">KPI</th><th style="width:20%">Ce que &#231;a mesure</th><th style="width:22%">Formule</th><th style="width:21%">Source K&amp;D</th><th style="width:14%">Seuil d&#8217;alerte</th></tr></thead><tbody>
+    <tr><td><span class="kn">&#201;conomie &#8212; d&#233;commissionnement</span></td><td>Co&#251;t des licences sur comptes inactifs et bloqu&#233;s</td><td><span class="mono">(Inactifs + Bloqu&#233;s) &#215; co&#251;t unitaire moyen</span></td><td>Data Report (calcul automatis&#233;)</td><td><span class="bd bdg">Objectif : 0</span></td></tr>
+    <tr><td><span class="kn">&#201;conomie &#8212; right-sizing plan</span></td><td>Gain si downgrade E3&#8594;E1+Apps ou E3&#8594;F3 selon usage</td><td><span class="mono">&#931; [(co&#251;t E3 &#8722; co&#251;t cible) &#215; nb candidats]</span></td><td>Graph API usage + catalogue prix &#8594; Data Report</td><td><span class="bd bdg">Quantifi&#233;<br>avant action</span></td></tr>
+    <tr><td><span class="kn">&#201;conomie &#8212; right-sizing profil</span></td><td>Profils surdimensionn&#233;s vs type d&#8217;employ&#233; (ex. stagiaire E5)</td><td>EmployeeType = Intern ET Plan = E3/E5 &#8594; candidat F1/E1</td><td>SIRH + Entra ID &#8594; Data Report</td><td><span class="bd bdr">Prioritaire</span></td></tr>
+    <tr><td><span class="kn">Budget r&#233;allou&#233; (cumul&#233;)</span></td><td>&#201;conomies r&#233;alis&#233;es r&#233;investies &#8212; ROI d&#233;montrable</td><td>Co&#251;t N-1 &#8722; Co&#251;t N, par p&#233;riode de r&#233;n&#233;gociation</td><td>Suivi contrat ou Data Report (vue DAF)</td><td><span class="bd bdg">Suivi contrat</span></td></tr>
+  </tbody></table>
+  <div class="kdbox"><strong>K&amp;D :</strong> Data Report calcule les &#233;conomies potentielles en croisant l&#8217;usage r&#233;el (Graph API) avec le catalogue tarifaire &#8212; sans export manuel.</div></div>
+  <hr class="divline">
+</div>
+</div>
+
+<!-- ========== GEODIS ========== -->
+<div class="tab" id="tab-geodis">
+<div class="wrap">
+  <div class="eyebrow">&#201;tude de cas &#183; GEODIS</div>
+  <h1 class="h1">Construire l&#8217;outillage de pilotage M365 &#224; l&#8217;&#233;chelle groupe</h1>
+  <div class="cmeta">
+    <div class="mi"><span class="ml">Contexte</span><span class="mv">Groupe logistique international</span></div>
+    <div class="mi"><span class="ml">P&#233;rim&#232;tre</span><span class="mv">Multi-r&#233;gions, multi-entit&#233;s</span></div>
+    <div class="mi"><span class="ml">Dur&#233;e</span><span class="mv">2023 &#8594; 2024</span></div>
+    <div class="mi"><span class="ml">R&#244;le</span><span class="mv">Lead admin fonctionnel M365</span></div>
+  </div>
+  <p class="sub">GEODIS n&#8217;avait pas de tableau de bord de pilotage M365. La mission&#160;: construire l&#8217;outillage complet &#8212; de la qualification des comptes jusqu&#8217;au dashboard op&#233;rationnel partageable en Comit&#233; directeur.</p>
+  <span class="slabel">Les d&#233;fis initiaux</span>
+  <div class="cgrid">
+    <div class="cc"><div class="ct">Comptes inactifs non d&#233;tect&#233;s</div><div class="cd">Aucun m&#233;canisme pour identifier les comptes inutilis&#233;s avec licence active. Ex-collaborateurs non d&#233;provisionn&#233;, comptes g&#233;n&#233;riques, licences bloqu&#233;es.</div></div>
+    <div class="cc"><div class="ct">Pas de vue organisationnelle</div><div class="cd">Impossible de relier les consommations &#224; l&#8217;organigramme GEODIS (r&#233;gions, entit&#233;s, segments) sans croisement SIRH.</div></div>
+    <div class="cc"><div class="ct">Refacturation contest&#233;e</div><div class="cd">La facturation interne n&#8217;&#233;tait pas r&#233;conciliable avec la r&#233;alit&#233; des usages. Les entit&#233;s ne pouvaient pas v&#233;rifier ce qu&#8217;on leur imputait.</div></div>
+    <div class="cc"><div class="ct">Vision pr&#233;dictive absente</div><div class="cd">Peak No&#235;l, &#233;v&#233;nements sportifs, Covid / Ukraine &#8212; impossible d&#8217;anticiper les besoins en licences temporaires.</div></div>
+  </div>
+  <span class="slabel">Livrables produits</span>
+  <div class="dlist">
+    <div class="dcard"><div class="dcard-icon">&#x1F5FA;</div><div class="dcard-body"><div class="dcard-name">Matrice de qualification des comptes inactifs</div><div class="dcard-desc">Arbre de d&#233;cision croisant BDES check, &#233;tat AD, derni&#232;re activit&#233; et EmployeeType. Produit 7 cat&#233;gories : Active_user, New_comer, Inactive_internal, Inactive_external, Inactive_generic, Inactive_shared, AD_account_blocked.</div><div class="dcard-tags"><span class="tag tag-b">Entra ID</span><span class="tag">signInActivity</span><span class="tag">EmployeeType</span><span class="tag">BDES</span></div></div><div class="dcard-ref">Inactifs_matrice.pdf</div></div>
+    <div class="dcard"><div class="dcard-icon">&#x1F4CB;</div><div class="dcard-body"><div class="dcard-name">CDC Dashboard (cadrage amont)</div><div class="dcard-desc">Cahier des charges structurant deux besoins : dashboard de pilotage M365 (actualisation hebdo, audience CIO/CTO/CDP) et dashboard de refacturation IT multi-sources (mensuel, audience CDG/CFO).</div><div class="dcard-tags"><span class="tag">Admin Center</span><span class="tag">LDAP</span><span class="tag">ServiceNow</span><span class="tag">Salesforce</span></div></div><div class="dcard-ref">CDC_v0.pdf</div></div>
+    <div class="dcard"><div class="dcard-icon">&#x1F4CA;</div><div class="dcard-body"><div class="dcard-name">Work Units Dashboard &#8212; v1 (oct. 2023)</div><div class="dcard-desc">Scorecard transverse M365 + autres services IT, filtres Period / Region / Segment / Entity, vue organisationnelle avec treemap entit&#233;s, liste utilisateurs avec statut actif/inactif et % d&#8217;inactivit&#233; au survol.</div><div class="dcard-tags"><span class="tag tag-b">Scorecard</span><span class="tag">Org view</span><span class="tag">User list</span><span class="tag">Treemap</span></div></div><div class="dcard-ref">Conso_Licences.pdf</div></div>
+    <div class="dcard"><div class="dcard-icon">&#x1F4CA;</div><div class="dcard-body"><div class="dcard-name">M365 Operational Dashboard &#8212; v2 (nov. 2024)</div><div class="dcard-desc">Groupview licences par plan (stock vs engagement), Licences conformit&#233; (double plan, inactifs, bloqu&#233;s, sans EMS), Profile distribution par entit&#233; l&#233;gale (Online/Medium/Full), User view fiche individuelle compl&#232;te.</div><div class="dcard-tags"><span class="tag tag-b">Groupview</span><span class="tag">Licence compliance</span><span class="tag">Profile</span><span class="tag">User view</span></div></div><div class="dcard-ref">Licences_Adoption.pdf</div></div>
+    <div class="dcard"><div class="dcard-icon">&#x1F3A4;</div><div class="dcard-body"><div class="dcard-name">REX Power365 &#8212; &#171;&#160;Lib&#233;rez du budget, gagnez en agilit&#233;&#160;&#187;</div><div class="dcard-desc">Retour d&#8217;exp&#233;rience pr&#233;sent&#233; en conf&#233;rence publique&#160;: constat initial, d&#233;marche d&#8217;audit en 4 &#233;tapes, profils sur-mesure, timeline jan.&#8211;ao&#251;t 2024, r&#233;sultats chiffr&#233;s, gouvernance projet.</div><div class="dcard-tags"><span class="tag tag-b">-30% d&#233;penses</span><span class="tag">12 000 comptes</span><span class="tag">3 profils</span><span class="tag">REX public</span></div></div><div class="dcard-ref">PrezPower.pdf</div></div>
+  </div>
+  <div class="insight"><div class="il">Ce qui est diff&#233;renciant</div><div class="it">La matrice de qualification des inactifs est le livrable cl&#233;&#160;: aucun outil Microsoft ne fait cette distinction nativement. Sans elle, un conducteur qui ne se connecte jamais (normal) et un ex-salari&#233; avec licence ouverte (anomalie) sont trait&#233;s de la m&#234;me fa&#231;on.</div></div>
+  <span class="slabel">Notes Know &amp; Decide</span>
+  <div class="kd-panel"><div class="kd-ph"><div class="kd-ph-title">Annotations GEODIS</div><div class="kd-ph-sub">Enregistr&#233;es localement</div></div><div class="kd-body"><div class="kd-title"><span class="kd-dot"></span>Vos notes</div><div class="kd-notes-list" id="kd-notes-geodis"></div><div class="kd-row"><textarea class="kd-input" id="kd-input-geodis" placeholder="Ajouter une note&#8230;"></textarea><button class="kd-add-btn" id="kd-add-geodis">Ajouter</button></div></div></div>
+  <hr class="divline">
+</div>
+</div>
+
+<!-- ========== PRINTEMPS ========== -->
+<div class="tab" id="tab-printemps">
+<div class="wrap">
+  <div class="eyebrow">&#201;tude de cas &#183; Printemps</div>
+  <h1 class="h1">G&#233;rer la transition de licences sous contrainte &#8212; 3&#160;500 utilisateurs en 3 mois</h1>
+  <div class="cmeta">
+    <div class="mi"><span class="ml">Contexte</span><span class="mv">Grand groupe retail &#8212; Grands Magasins</span></div>
+    <div class="mi"><span class="ml">P&#233;rim&#232;tre</span><span class="mv">3 500 utilisateurs</span></div>
+    <div class="mi"><span class="ml">Dur&#233;e</span><span class="mv">Mission 4 mois (dont 2 mois d&#8217;&#233;t&#233;)</span></div>
+    <div class="mi"><span class="ml">D&#233;clencheur</span><span class="mv">R&#233;n&#233;gociation contrat cadre juin 2025</span></div>
+  </div>
+  <p class="sub">Sollicit&#233; par la DSI pour apporter une vision ind&#233;pendante et soutenir le d&#233;ploiement dans un contexte de contrainte budg&#233;taire forte, de migration risqu&#233;e et d&#8217;absence d&#8217;outillage de suivi des licences.</p>
+  <span class="slabel">Contexte et enjeux</span>
+  <div class="cgrid">
+    <div class="cc"><div class="ct">R&#233;n&#233;gociation du contrat cadre Microsoft</div><div class="cd">Contrat 3+2 ans &#224; r&#233;n&#233;gocier en juin 2025. Contexte &#233;conomique difficile &#8212; volont&#233; de r&#233;duire les co&#251;ts M365 avec passage majoritaire de ME3/E3 vers E1.</div></div>
+    <div class="cc"><div class="ct">Incompr&#233;hension licences vs usages terrain</div><div class="cd">Aucune analyse des crit&#232;res d&#8217;&#233;ligibilit&#233; au downgrade (taille BAL, archives, OneDrive, macros) avant la d&#233;cision de migration.</div></div>
+    <div class="cc"><div class="ct">Pression calendaire critique</div><div class="cd">3&#160;500 utilisateurs &#224; migrer en 3 mois dont deux mois d&#8217;&#233;t&#233; &#8212; fen&#234;tre tr&#232;s contrainte avec &#233;quipes r&#233;duites.</div></div>
+    <div class="cc"><div class="ct">Absence totale d&#8217;outillage</div><div class="cd">Pas de dashboard de suivi des licences. Assignation uniquement via group-based licensing (EasyVista), sans vision consolid&#233;e ni profilage utilisateurs.</div></div>
+  </div>
+  <span class="slabel">Signaux surprenants d&#233;couverts</span>
+  <div class="dlist">
+    <div class="dcard"><div class="dcard-icon">&#x26A0;</div><div class="dcard-body"><div class="dcard-name">Provisioning automatique sans gouvernance</div><div class="dcard-desc">Malgr&#233; un provisioning automatique depuis EasyVista via group-based licensing, aucune gestion uniformis&#233;e. Les groupes AD pilotaient l&#8217;assignation sans vision transverse.</div><div class="dcard-tags"><span class="tag">EasyVista</span><span class="tag">Group-based licensing</span><span class="tag">AD Groups</span></div></div></div>
+    <div class="dcard"><div class="dcard-icon">&#x26A0;</div><div class="dcard-body"><div class="dcard-name">D&#233;corr&#233;lation financier / RH / terrain</div><div class="dcard-desc">&#201;quipes techniques tr&#232;s comp&#233;tentes mais travaillant en silo. Le financier, les RH et le terrain ne parlaient pas le m&#234;me langage licences. Aucun croisement SIRH / Admin Center n&#8217;avait &#233;t&#233; r&#233;alis&#233;.</div><div class="dcard-tags"><span class="tag">SIRH</span><span class="tag">Admin Center</span><span class="tag">Croisement donn&#233;es</span></div></div></div>
+    <div class="dcard"><div class="dcard-icon">&#x26A0;</div><div class="dcard-body"><div class="dcard-name">Aucune &#233;tude d&#8217;impact ind&#233;pendante</div><div class="dcard-desc">L&#8217;unique &#233;tude disponible avant migration &#233;tait celle fournie par Devoteam. Aucune contre-expertise sur les crit&#232;res d&#8217;&#233;ligibilit&#233; terrain (BAL, archives, OneDrive, macros).</div><div class="dcard-tags"><span class="tag">Devoteam</span><span class="tag">Google Workspace</span><span class="tag">Workshops m&#233;tiers</span></div></div></div>
+  </div>
+  <span class="slabel">L&#8217;intervention et la valeur apport&#233;e</span>
+  <div class="dlist">
+    <div class="dcard"><div class="dcard-icon">&#x1F4CB;</div><div class="dcard-body"><div class="dcard-name">Sc&#233;narios de mitigation du risque</div><div class="dcard-desc">Bundles temporaires E1 + M365 Apps, sc&#233;narios de contournement bas&#233;s sur la r&#233;alit&#233; terrain (notamment macros Excel), phase de transition progressive.</div><div class="dcard-tags"><span class="tag tag-b">E1 + M365 Apps</span><span class="tag">Sc&#233;narios alternatifs</span><span class="tag">Macros Excel</span></div></div></div>
+    <div class="dcard"><div class="dcard-icon">&#x1F4CA;</div><div class="dcard-body"><div class="dcard-name">Analyse d&#8217;&#233;ligibilit&#233; au downgrade</div><div class="dcard-desc">Croisement des sources SIRH avec les donn&#233;es Admin Center. Focus sur les crit&#232;res d&#8217;&#233;ligibilit&#233;&#160;: taille de BAL, archives, espace OneDrive. Phase d&#8217;analyse en 1 mois avant l&#8217;impl&#233;mentation.</div><div class="dcard-tags"><span class="tag tag-b">SIRH</span><span class="tag">BAL size</span><span class="tag">Archive</span><span class="tag">OneDrive quota</span></div></div></div>
+    <div class="dcard"><div class="dcard-icon">&#x1F4C5;</div><div class="dcard-body"><div class="dcard-name">Feuille de route 3 ans</div><div class="dcard-desc">Transition sc&#233;nario temporaire vers d&#233;finitif&#160;: engagement annuel M365 Apps, r&#233;duction des ME3 restantes &#224; la date anniversaire, r&#233;n&#233;gociation Microsoft, mise &#224; jour des workflows EasyVista.</div><div class="dcard-tags"><span class="tag tag-b">Roadmap 3 ans</span><span class="tag">EasyVista</span><span class="tag">Date anniversaire</span></div></div></div>
+    <div class="dcard"><div class="dcard-icon">&#x1F916;</div><div class="dcard-body"><div class="dcard-name">Accompagnement Copilot et IA interne</div><div class="dcard-desc">Accompagnement de la DSI sur le d&#233;ploiement Copilot M365&#160;: questionnaire d&#8217;acculturation, semaine IA, collecte des cas d&#8217;usage terrain (FW), accompagnement Microsoft.</div><div class="dcard-tags"><span class="tag tag-b">Copilot M365</span><span class="tag">Acculturation IA</span><span class="tag">Cas d&#8217;usage FW</span></div></div></div>
+  </div>
+  <span class="slabel">R&#233;sultats</span>
+  <div class="rgrid">
+    <div class="rcard"><div class="rnum">3&#160;500</div><div class="rlbl">Utilisateurs migr&#233;s</div><div class="rdet">En 3 mois dont 2 mois d&#8217;&#233;t&#233; &#8212; dans le d&#233;lai de la p&#233;riode de gr&#226;ce contractuelle</div></div>
+    <div class="rcard"><div class="rnum">1 mois</div><div class="rlbl">Phase d&#8217;analyse</div><div class="rdet">Croisement SIRH / Admin Center, &#233;ligibilit&#233; BAL / archive / OneDrive, sc&#233;narios de mitigation</div></div>
+    <div class="rcard"><div class="rnum">Ma&#238;tris&#233;</div><div class="rlbl">D&#233;passement budg&#233;taire</div><div class="rdet">Redressement de la situation avec confiance du groupe pour d&#233;ployer Copilot ensuite</div></div>
+    <div class="rcard"><div class="rnum">Copilot</div><div class="rlbl">Suite de la mission</div><div class="rdet">Adh&#233;sion des &#233;quipes m&#233;tiers et d&#233;ploiement de l&#8217;IA interne confi&#233; suite &#224; la mission licences</div></div>
+  </div>
+  <div class="warn-box"><div class="warn-lbl">Ce que j&#8217;aurais fait diff&#233;remment</div><div class="warn-txt">Alerter la DSI directement sans passer par les interm&#233;diaires pour faire prendre conscience du mur budg&#233;taire plus t&#244;t. Avec K&amp;D, tout le monde &#8212; financier, RH, IT, direction &#8212; aurait pu visualiser la situation r&#233;elle d&#232;s le d&#233;part.</div></div>
+  <span class="slabel">Timeline</span>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Contexte initial</div><div class="tl-phase">R&#233;n&#233;gociation contrat cadre Microsoft (3+2)</div><div class="tl-desc">Volont&#233; de r&#233;duction des co&#251;ts M365. Workshops Devoteam / Google Workspace. D&#233;cision direction&#160;: rester Microsoft avec passage majoritaire ME3/E3 vers E1.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Mois 1</div><div class="tl-phase">Phase d&#8217;analyse</div><div class="tl-desc">Croisement SIRH avec donn&#233;es Admin Center. Analyse des crit&#232;res d&#8217;&#233;ligibilit&#233; au downgrade (BAL, archives, OneDrive). Construction des sc&#233;narios de mitigation.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Mois 2&#8211;4 (dont 2 mois d&#8217;&#233;t&#233;)</div><div class="tl-phase">Impl&#233;mentation et gestion de crise</div><div class="tl-desc">Migration de 3&#160;500 utilisateurs. Bundles temporaires E1 + M365 Apps. Sc&#233;narios de contournement macros. Mise &#224; jour workflows EasyVista.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Suite de mission</div><div class="tl-phase">Feuille de route 3 ans + Copilot</div><div class="tl-desc">Transition sc&#233;nario temporaire vers d&#233;finitif. Engagement annuel M365 Apps. Accompagnement DSI sur d&#233;ploiement Copilot et acculturation IA.</div></div>
+  </div>
+  <span class="slabel">Notes Know &amp; Decide</span>
+  <div class="kd-panel"><div class="kd-ph"><div class="kd-ph-title">Annotations Printemps</div><div class="kd-ph-sub">Enregistr&#233;es localement</div></div><div class="kd-body"><div class="kd-title"><span class="kd-dot"></span>Vos notes</div><div class="kd-notes-list" id="kd-notes-printemps"></div><div class="kd-row"><textarea class="kd-input" id="kd-input-printemps" placeholder="Ajouter une note&#8230;"></textarea><button class="kd-add-btn" id="kd-add-printemps">Ajouter</button></div></div></div>
+  <hr class="divline">
+</div>
+</div>
+
+<!-- ========== MARCHE ========== -->
+<div class="tab" id="tab-marche">
+<div class="wrap">
+  <div class="eyebrow">Analyse concurrentielle</div>
+  <h1 class="h1">Le march&#233; des outils FinOps M365 &#8212; et le mod&#232;le r&#233;plicable</h1>
+  <p class="sub">Trois solutions coexistent sur ce segment sans se concurrencer frontalement. Comprendre ce que chacune fait &#8212; et ce qu&#8217;aucune ne fait seule &#8212; c&#8217;est identifier la proposition de valeur du partenariat.</p>
+  <span class="slabel">Les 3 solutions en un coup d&#8217;oeil</span>
+  <div id="sol-cards"></div>
+  <span class="slabel">Tableau comparatif sur les dimensions cl&#233;s FinOps M365</span>
+  <div class="comp-wrap">
+    <table class="comp">
+      <thead><tr><th style="width:22%">Dimension</th><th style="width:22%">SamBox.io (Elee)</th><th style="width:22%">CoreView</th><th style="width:22%" class="kd-col">Know &amp; Decide</th><th style="width:12%">Gap</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dim-name">Collecte M365</span></td><td><span class="c-yes">&#10003;</span> Graph API, quotidien</td><td><span class="c-yes">&#10003;</span> Natif tenant</td><td class="kd-col"><span class="c-yes">&#10003;</span> Data Discover agentless</td><td>&#8212;</td></tr>
+        <tr><td><span class="dim-name">Croisement SIRH</span></td><td><span class="c-no">&#10007;</span> Non couvert</td><td><span class="c-partial">&#126;</span> Entra ID uniquement</td><td class="kd-col"><span class="c-yes">&#10003;</span> Jointure UPN native</td><td>Elee, CoreView</td></tr>
+        <tr><td><span class="dim-name">Qualification inactifs</span><br><small style="color:#aaa;font-size:10px">(matrice 7 cat&#233;gories)</small></td><td><span class="c-no">&#10007;</span> Usage brut seulement</td><td><span class="c-partial">&#126;</span> Inactivit&#233; technique seule</td><td class="kd-col"><span class="c-yes">&#10003;</span> Moteur de r&#232;gles no-code</td><td>Elee, CoreView</td></tr>
+        <tr><td><span class="dim-name">Profils terrain</span><br><small style="color:#aaa;font-size:10px">(conducteur, stagiaire&#8230;)</small></td><td><span class="c-no">&#10007;</span> Non couvert</td><td><span class="c-no">&#10007;</span> Non couvert</td><td class="kd-col"><span class="c-yes">&#10003;</span> EmployeeType &#215; licence</td><td>Elee, CoreView</td></tr>
+        <tr><td><span class="dim-name">Eligibilit&#233; downgrade</span><br><small style="color:#aaa;font-size:10px">(BAL, archive, OneDrive)</small></td><td><span class="c-no">&#10007;</span> Non couvert</td><td><span class="c-partial">&#126;</span> Taille BAL d&#233;tect&#233;e</td><td class="kd-col"><span class="c-partial">&#126;</span> A configurer au setup</td><td><strong>Expertise terrain</strong></td></tr>
+        <tr><td><span class="dim-name">Conformit&#233; &#233;diteur</span><br><small style="color:#aaa;font-size:10px">(True Up/Down, audit)</small></td><td><span class="c-strong">&#10003;&#10003;</span> Coeur du produit</td><td><span class="c-no">&#10007;</span> Non couvert</td><td class="kd-col"><span class="c-no">&#10007;</span> Pas de moteur SAM</td><td><strong>K&amp;D a combler</strong></td></tr>
+        <tr><td><span class="dim-name">Forecast budg&#233;taire 3 ans</span></td><td><span class="c-yes">&#10003;</span> Sc&#233;narios r&#233;n&#233;gociation</td><td><span class="c-no">&#10007;</span> Non couvert</td><td class="kd-col"><span class="c-no">&#10007;</span> Pas natif</td><td><strong>K&amp;D a combler</strong></td></tr>
+        <tr><td><span class="dim-name">R&#233;m&#233;diation automatique</span></td><td><span class="c-partial">&#126;</span> Plan de rem&#233;diation</td><td><span class="c-strong">&#10003;&#10003;</span> Action auto sur tenant</td><td class="kd-col"><span class="c-partial">&#126;</span> Alertes + tickets ITSM</td><td><strong>K&amp;D a enrichir</strong></td></tr>
+        <tr><td><span class="dim-name">Suivi adoption Copilot</span></td><td><span class="c-no">&#10007;</span> Non couvert</td><td><span class="c-yes">&#10003;</span> D&#233;tecte sous-utilisation</td><td class="kd-col"><span class="c-no">&#10007;</span> Connecteur a cr&#233;er</td><td><strong>K&amp;D a combler</strong></td></tr>
+        <tr><td><span class="dim-name">Multi-&#233;diteurs</span><br><small style="color:#aaa;font-size:10px">(Adobe, Salesforce&#8230;)</small></td><td><span class="c-yes">&#10003;</span> Oracle, SAP, SQL</td><td><span class="c-no">&#10007;</span> M365 uniquement</td><td class="kd-col"><span class="c-yes">&#10003;</span> Agnostique aux donn&#233;es</td><td>CoreView</td></tr>
+        <tr><td><span class="dim-name">Gouvernance CMDB</span></td><td><span class="c-no">&#10007;</span> Non couvert</td><td><span class="c-no">&#10007;</span> Non couvert</td><td class="kd-col"><span class="c-yes">&#10003;</span> Coeur du produit</td><td>Elee, CoreView</td></tr>
+        <tr><td><span class="dim-name">Reporting multi-audiences</span></td><td><span class="c-yes">&#10003;</span> Vue DAF / IT</td><td><span class="c-yes">&#10003;</span> Chargeback BU / Finance</td><td class="kd-col"><span class="c-yes">&#10003;</span> 4 vues DSI/DAF/IT/Metiers</td><td>&#8212;</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="slabel">Le mod&#232;le FinOps M365 r&#233;plicable &#8212; qui fait quoi &#224; chaque &#233;tape</span>
+  <div id="model-steps"></div>
+  <span class="slabel">Les gaps K&amp;D &#224; adresser pour couvrir le mod&#232;le complet</span>
+  <table class="gaps-table">
+    <thead><tr><th style="width:27%">Gap identifi&#233;</th><th style="width:9%">Priorit&#233;</th><th style="width:40%">Action recommand&#233;e</th><th style="width:14%">Inspiration</th></tr></thead>
+    <tbody id="gaps-tbody"></tbody>
+  </table>
+  <div class="insight" style="margin-top:1.25rem"><div class="il">Le message cl&#233;</div><div class="it">Elee sait calculer ce que vous devez payer &#224; Microsoft. CoreView sait automatiser ce que vous avez param&#233;tr&#233;. K&amp;D sait consolider ce que vous ne voyez pas encore. L&#8217;expert terrain sait traduire les donn&#233;es brutes en d&#233;cisions m&#233;tier &#8212; et c&#8217;est ce qui manque aux trois outils pour couvrir le mod&#232;le FinOps M365 de bout en bout.</div></div>
+  <span class="slabel">Notes Know &amp; Decide</span>
+  <div class="kd-panel"><div class="kd-ph"><div class="kd-ph-title">Annotations March&#233;</div><div class="kd-ph-sub">Enregistr&#233;es localement</div></div><div class="kd-body"><div class="kd-title"><span class="kd-dot"></span>Vos notes</div><div class="kd-notes-list" id="kd-notes-marche"></div><div class="kd-row"><textarea class="kd-input" id="kd-input-marche" placeholder="Ajouter une note&#8230;"></textarea><button class="kd-add-btn" id="kd-add-marche">Ajouter</button></div></div></div>
+  <hr class="divline">
+</div>
+</div>
+
+<!-- ========== SKUs ========== -->
+<div class="tab" id="tab-skus">
+<div class="wrap">
+  <div class="eyebrow">R&#233;f&#233;rentiel licences</div>
+  <h1 class="h1">SKUs Microsoft 365</h1>
+  <p class="sub" style="margin-bottom:1.25rem">184 plans filtr&#233;s &#8212; hors variantes GOV/GCC/EDU. Recherche par nom, String_Id ou GUID. Filtres par famille.</p>
+  <div class="toolbar"><input class="s-input" id="sku-search" type="text" placeholder="Nom, String_Id, GUID&#8230;"><div class="f-btns" id="fam-btns"></div><span class="rcount" id="sku-count"></span></div>
+  <table class="sku-t"><thead><tr><th style="width:40%">Nom du plan</th><th style="width:18%">String_Id</th><th style="width:13%">Famille</th><th style="width:29%">GUID</th></tr></thead><tbody id="sku-tbody"></tbody></table>
+</div>
+</div>
+
+<!-- ========== GRAPH ========== -->
+<div class="tab" id="tab-graph">
+<div class="wrap">
+  <div class="eyebrow">R&#233;f&#233;rentiel technique</div>
+  <h1 class="h1">Graph API &#8212; Endpoints FinOps M365</h1>
+  <p class="sub" style="margin-bottom:1.25rem">27 endpoints s&#233;lectionn&#233;s parmi 18&#160;000+ pour le pilotage FinOps. Tous disponibles en v1.0.</p>
+  <input class="s-input" id="graph-search" type="text" placeholder="Endpoint, champ, description&#8230;" style="width:100%;margin-bottom:1rem">
+  <div id="graph-body"></div>
+</div>
+</div>
+
+<script>
+(function() {
+  // Lecture des donnees depuis les balises JSON — zero interpolation Python dans le JS
+  var MARCHE = JSON.parse(document.getElementById('d-marche').textContent);
+  var SKUS   = JSON.parse(document.getElementById('d-skus').textContent);
+  var GRAPH  = JSON.parse(document.getElementById('d-graph').textContent);
+
+  function esc(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // TABS
+  var TABS = ['expertise','framework','geodis','printemps','marche','skus','graph'];
+  function showTab(name) {
+    TABS.forEach(function(t) {
+      var tab = document.getElementById('tab-'+t);
+      var btn = document.getElementById('btn-'+t);
+      if (tab) tab.className = t===name ? 'tab on' : 'tab';
+      if (btn) btn.className = t===name ? 'ntab on' : 'ntab';
+    });
+  }
+  TABS.forEach(function(t) {
+    var b = document.getElementById('btn-'+t);
+    if (b) b.addEventListener('click', function() { showTab(t); });
+  });
+  showTab('expertise');
+
+  // KD Notes
+  function initNotes(listId, inputId, addId, key) {
+    var list = document.getElementById(listId);
+    var inp  = document.getElementById(inputId);
+    var btn  = document.getElementById(addId);
+    if (!list || !inp || !btn) return;
+    var notes = [];
+    try { var s = localStorage.getItem(key); if (s) notes = JSON.parse(s); } catch(e) {}
+    function render() {
+      list.innerHTML = '';
+      notes.forEach(function(note, i) {
+        var d = document.createElement('div');
+        d.className = 'kd-note-item';
+        d.textContent = note;
+        var del = document.createElement('button');
+        del.className = 'kd-del';
+        del.textContent = '✕';
+        del.addEventListener('click', (function(idx) { return function() {
+          notes.splice(idx, 1); render();
+          try { localStorage.setItem(key, JSON.stringify(notes)); } catch(e) {}
+        }; })(i));
+        d.appendChild(del);
+        list.appendChild(d);
+      });
+    }
+    btn.addEventListener('click', function() {
+      var t = inp.value.trim(); if (!t) return;
+      notes.push(t); inp.value = ''; render();
+      try { localStorage.setItem(key, JSON.stringify(notes)); } catch(e) {}
+    });
+    render();
+  }
+  initNotes('kd-notes-geodis',   'kd-input-geodis',   'kd-add-geodis',   'kd_geodis');
+  initNotes('kd-notes-printemps','kd-input-printemps','kd-add-printemps','kd_printemps');
+  initNotes('kd-notes-marche',   'kd-input-marche',   'kd-add-marche',   'kd_marche');
+
+  // ---- MARCHE ----
+  // Solution cards
+  var solContainer = document.getElementById('sol-cards');
+  var solGrid = document.createElement('div');
+  solGrid.className = 'sol-cards';
+  MARCHE.solutions.forEach(function(sol) {
+    var card = document.createElement('div');
+    card.className = 'sol-card';
+    var c = sol.logo_color || '#3b6de8';
+    var h = '<div class="sol-header" style="border-top:3px solid '+c+'">'
+      + '<div class="sol-logo" style="color:'+c+'">'+esc(sol.nom)+'</div>'
+      + '<div class="sol-tagline">'+esc(sol.tagline)+'</div></div>';
+    var b = '<div class="sol-body"><div class="sol-adn">'+esc(sol.adn)+'</div>';
+    var forces = sol.forces || sol.valeur_distinctive || [];
+    if (forces.length) {
+      b += '<div class="sol-stitle">Forces</div><div class="sol-list">';
+      forces.slice(0,4).forEach(function(f) { b += '<div class="sol-item">'+esc(f)+'</div>'; });
+      b += '</div>';
+    }
+    var lims = sol.limites || sol.limites_actuelles || [];
+    if (lims.length) {
+      b += '<div class="sol-stitle">Limites</div><div class="sol-list">';
+      lims.slice(0,3).forEach(function(l) { b += '<div class="sol-item neg">'+esc(l)+'</div>'; });
+      b += '</div>';
+    }
+    if (sol.kd_a_prendre) {
+      b += '<div class="sol-stitle" style="color:#3b6de8">A intégrer dans K&D</div><div class="sol-list">';
+      sol.kd_a_prendre.slice(0,3).forEach(function(k) { b += '<div class="sol-item take">'+esc(k)+'</div>'; });
+      b += '</div>';
+    }
+    b += '</div>';
+    var f = '<div class="sol-footer">'+esc(sol.modele)+'</div>';
+    card.innerHTML = h + b + f;
+    solGrid.appendChild(card);
+  });
+  solContainer.appendChild(solGrid);
+
+  // Model steps
+  var modelContainer = document.getElementById('model-steps');
+  MARCHE.modele_finops.etapes.forEach(function(etape) {
+    var block = document.createElement('div');
+    block.className = 'model-step';
+    var head = '<div class="model-head">'
+      + '<div class="model-num">'+esc(etape.num)+'</div>'
+      + '<div class="model-title">'+esc(etape.titre)+'</div>'
+      + '<div class="model-desc-head">'+esc(etape.desc)+'</div></div>';
+    var makeClass = function(covers) { return covers ? 'msol cov' : 'msol ncov'; };
+    var body = '<div class="model-body"><div class="model-grid">'
+      + '<div class="'+makeClass(etape.sambox_couvre)+'">'
+      + '<div class="msol-name">SamBox.io</div><div class="msol-text">'+esc(etape.sambox_note)+'</div></div>'
+      + '<div class="'+makeClass(etape.coreview_couvre)+'">'
+      + '<div class="msol-name">CoreView</div><div class="msol-text">'+esc(etape.coreview_note)+'</div></div>'
+      + '<div class="'+makeClass(etape.kd_couvre)+'">'
+      + '<div class="msol-name" style="color:#3b6de8">Know &amp; Decide</div><div class="msol-text">'+esc(etape.kd_note)+'</div></div>'
+      + '</div>';
+    if (etape.anthony_apporte) {
+      body += '<div class="model-anthony"><strong>Ce que l&#8217;expert terrain apporte&nbsp;:</strong> '+esc(etape.anthony_apporte)+'</div>';
+    }
+    body += '</div>';
+    block.innerHTML = head + body;
+    modelContainer.appendChild(block);
+  });
+
+  // Gaps table
+  var gapsTbody = document.getElementById('gaps-tbody');
+  var PRIO = {'haute':'p-hte','moyenne':'p-moy','critique':'p-crit'};
+  MARCHE.modele_finops.gaps_kd.forEach(function(gap) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><strong>'+esc(gap.gap)+'</strong></td>'
+      + '<td><span class="'+(PRIO[gap.priorite]||'p-moy')+'">'+esc(gap.priorite)+'</span></td>'
+      + '<td>'+esc(gap.action)+'</td>'
+      + '<td><span class="src-badge">'+esc(gap.source)+'</span></td>';
+    gapsTbody.appendChild(tr);
+  });
+
+  // ---- SKUs ----
+  var FAM_CLS = {
+    'Enterprise E-plans':'fEnt','Business':'fBus','Frontline':'fFro',
+    'EMS / Security':'fEMS','Exchange':'fExc','Teams':'fTea',
+    'SharePoint':'fSPO','OneDrive':'fOD','Copilot':'fCop',
+    'Power BI':'fPBI','Viva':'fViv','M365 Apps':'fApp','Autre':'fAut'
+  };
+  var tbody     = document.getElementById('sku-tbody');
+  var skuSearch = document.getElementById('sku-search');
+  var famBtns   = document.getElementById('fam-btns');
+  var skuCount  = document.getElementById('sku-count');
+  var activeFam = null;
+  var FAMS = [];
+  SKUS.forEach(function(s) { if (FAMS.indexOf(s.Famille) === -1) FAMS.push(s.Famille); });
+  FAMS.sort();
+  FAMS.forEach(function(fam) {
+    var b = document.createElement('button');
+    b.className = 'fbtn'; b.textContent = fam;
+    b.addEventListener('click', function() {
+      if (activeFam === fam) { activeFam = null; b.classList.remove('on'); }
+      else { activeFam = fam; document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('on');}); b.classList.add('on'); }
+      filterSKU();
+    });
+    famBtns.appendChild(b);
+  });
+  SKUS.forEach(function(s) {
+    var tr = document.createElement('tr');
+    tr.setAttribute('data-s', (s.Product_Display_Name+' '+s.String_Id+' '+s.GUID).toLowerCase());
+    tr.setAttribute('data-f', s.Famille);
+    var fc = FAM_CLS[s.Famille] || 'fAut';
+    tr.innerHTML = '<td><span class="sku-name">'+esc(s.Product_Display_Name)+'</span></td>'
+      +'<td><span class="sku-id">'+esc(s.String_Id)+'</span></td>'
+      +'<td><span class="fam-badge '+fc+'">'+esc(s.Famille)+'</span></td>'
+      +'<td><span class="sku-id">'+esc(s.GUID)+'</span></td>';
+    tbody.appendChild(tr);
+  });
+  function filterSKU() {
+    var q = skuSearch.value.toLowerCase();
+    var rows = tbody.querySelectorAll('tr');
+    var v = 0;
+    rows.forEach(function(r) {
+      var ok = (!q || r.getAttribute('data-s').indexOf(q) !== -1)
+            && (!activeFam || r.getAttribute('data-f') === activeFam);
+      r.className = ok ? '' : 'hr-row';
+      if (ok) v++;
+    });
+    skuCount.textContent = v + ' / ' + SKUS.length;
+  }
+  skuSearch.addEventListener('input', filterSKU);
+  filterSKU();
+
+  // ---- GRAPH ----
+  var DOT = {blue:'c-blue',green:'c-green',orange:'c-orange',purple:'c-purple',red:'c-red'};
+  var graphBody   = document.getElementById('graph-body');
+  var graphSearch = document.getElementById('graph-search');
+  Object.keys(GRAPH).forEach(function(cat) {
+    var c = GRAPH[cat];
+    var block = document.createElement('div'); block.className = 'cat-block';
+    var head  = document.createElement('div'); head.className  = 'cat-head';
+    head.innerHTML = '<span class="c-dot '+(DOT[c.color]||'c-blue')+'"></span>'
+      + '<span class="cat-name">'+esc(cat)+'</span>'
+      + '<span class="cat-desc">'+esc(c.desc)+'</span>'
+      + '<span class="cat-chev o">&#9658;</span>';
+    var body = document.createElement('div'); body.className = 'cat-body o';
+    c.endpoints.forEach(function(ep) {
+      var row = document.createElement('div'); row.className = 'ep-row';
+      row.setAttribute('data-g', (ep.e+' '+ep.desc+' '+ep.field).toLowerCase());
+      row.innerHTML = '<div class="ep-left">'
+        + '<div class="ep-path">GET '+esc(ep.e)+'</div>'
+        + '<div class="ep-desc">'+esc(ep.desc)+'</div>'
+        + '<div class="ep-fields">'+esc(ep.field)+'</div>'
+        + '</div><span class="ep-v1">v1.0</span>';
+      body.appendChild(row);
+    });
+    head.addEventListener('click', function() {
+      var o = body.classList.contains('o');
+      body.className  = o ? 'cat-body'       : 'cat-body o';
+      head.querySelector('.cat-chev').className = o ? 'cat-chev' : 'cat-chev o';
+    });
+    block.appendChild(head); block.appendChild(body); graphBody.appendChild(block);
+  });
+  graphSearch.addEventListener('input', function() {
+    var q = graphSearch.value.toLowerCase();
+    document.querySelectorAll('.ep-row').forEach(function(r) {
+      r.className = (!q || r.getAttribute('data-g').indexOf(q) !== -1) ? 'ep-row' : 'ep-row g-hidden';
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
